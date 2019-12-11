@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddWeightEntryPageRoutingModule } from './add-weight-entry-routing.module';
+import { WeightEntryPageRoutingModule } from './weight-entry-routing.module';
 
-import { AddWeightEntryPage } from './add-weight-entry.page';
+import { WeightEntryPage } from './weight-entry.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -15,8 +15,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    AddWeightEntryPageRoutingModule
+    WeightEntryPageRoutingModule
   ],
-  declarations: [AddWeightEntryPage]
+  declarations: [WeightEntryPage]
 })
-export class AddWeightEntryPageModule {}
+export class WeightEntryPageModule {}

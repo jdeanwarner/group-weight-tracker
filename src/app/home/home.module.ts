@@ -24,8 +24,8 @@ import { WeightEntriesResolver } from './weight-entries.resolver';
         resolve: [WeightEntriesResolver]
       },
       {
-        path: 'add',
-        loadChildren: () => import('./add-weight-entry/add-weight-entry.module').then( m => m.AddWeightEntryPageModule)
+        path: 'entry',
+        loadChildren: () => import('./weight-entry/weight-entry.module').then( m => m.WeightEntryPageModule)
       }
     ]),
     StoreModule.forFeature('weightEntries', reducers),

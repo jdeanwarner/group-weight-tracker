@@ -1,4 +1,4 @@
-import { InsertWeightEntry } from './../store/actions/weight-entry.actions';
+import { InsertWeightEntry } from '../store/actions/weight-entry.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { firestore } from 'firebase';
@@ -7,11 +7,11 @@ import * as fromStore from '../store';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-weight-entry',
-  templateUrl: './add-weight-entry.page.html',
-  styleUrls: ['./add-weight-entry.page.scss'],
+  selector: 'app-weight-entry',
+  templateUrl: './weight-entry.page.html',
+  styleUrls: ['./weight-entry.page.scss'],
 })
-export class AddWeightEntryPage implements OnInit {
+export class WeightEntryPage implements OnInit {
 
   maxDate: string;
   formGroup: FormGroup = new FormGroup({

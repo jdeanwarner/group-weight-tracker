@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddWeightEntryPage } from './add-weight-entry.page';
+import { WeightEntryPage } from './weight-entry.page';
 
-describe('AddWeightEntryPage', () => {
-  let component: AddWeightEntryPage;
-  let fixture: ComponentFixture<AddWeightEntryPage>;
+describe('WeightEntryPage', () => {
+  let component: WeightEntryPage;
+  let fixture: ComponentFixture<WeightEntryPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddWeightEntryPage ],
+      declarations: [ WeightEntryPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddWeightEntryPage);
+    fixture = TestBed.createComponent(WeightEntryPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

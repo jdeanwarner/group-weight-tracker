@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AddWeightEntryPage } from './add-weight-entry.page';
+import { WeightEntryPage } from './weight-entry.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AddWeightEntryPage
+    component: WeightEntryPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AddWeightEntryPageRoutingModule {}
+export class WeightEntryPageRoutingModule {}
