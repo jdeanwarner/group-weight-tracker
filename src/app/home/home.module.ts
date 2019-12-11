@@ -22,6 +22,10 @@ import { WeightEntriesResolver } from './weight-entries.resolver';
         path: '',
         component: HomePage,
         resolve: [WeightEntriesResolver]
+      },
+      {
+        path: 'add',
+        loadChildren: () => import('./add-weight-entry/add-weight-entry.module').then( m => m.AddWeightEntryPageModule)
       }
     ]),
     StoreModule.forFeature('weightEntries', reducers),

@@ -34,50 +34,50 @@ export class LoadWeightEntriesFail implements Action {
     constructor(public playload: any) {}
 }
 
-export class InsertWeightEntries implements Action {
+export class InsertWeightEntry implements Action {
     readonly type = INSERT_WEIGHT_ENTRIES;
 
     constructor(public playload: WeightEntry) {}
 }
 
-export class InsertWeightEntriesSuccess implements Action {
+export class InsertWeightEntrySuccess implements Action {
     readonly type = INSERT_WEIGHT_ENTRIES_SUCCESS;
     constructor(public playload: DocumentReference) {}
 }
 
-export class InsertWeightEntriesFail implements Action {
+export class InsertWeightEntryFail implements Action {
     readonly type = INSERT_WEIGHT_ENTRIES_FAIL;
 
     constructor(public playload: any) {}
 }
 
-export class UpdateWeightEntries implements Action {
+export class UpdateWeightEntry implements Action {
     readonly type = UPDATE_WEIGHT_ENTRIES;
 
     constructor(public playload: WeightEntry) {}
 }
 
-export class UpdateWeightEntriesSuccess implements Action {
+export class UpdateWeightEntrySuccess implements Action {
     readonly type = UPDATE_WEIGHT_ENTRIES_SUCCESS;
 }
 
-export class UpdateWeightEntriesFail implements Action {
+export class UpdateWeightEntryFail implements Action {
     readonly type = UPDATE_WEIGHT_ENTRIES_FAIL;
 
     constructor(public playload: any) {}
 }
 
-export class DeleteWeightEntries implements Action {
+export class DeleteWeightEntry implements Action {
     readonly type = DELETE_WEIGHT_ENTRIES;
 
     constructor(public playload: string) {}
 }
 
-export class DeleteWeightEntriesSuccess implements Action {
+export class DeleteWeightEntrySuccess implements Action {
     readonly type = DELETE_WEIGHT_ENTRIES_SUCCESS;
 }
 
-export class DeleteWeightEntriesFail implements Action {
+export class DeleteWeightEntryFail implements Action {
     readonly type = DELETE_WEIGHT_ENTRIES_FAIL;
 
     constructor(public playload: any) {}
@@ -88,12 +88,12 @@ export type WeightEntryActions =
     LoadWeightEntries |
     LoadWeightEntriesFail |
     LoadWeightEntriesSuccess |
-    InsertWeightEntries |
-    InsertWeightEntriesFail |
-    InsertWeightEntriesSuccess |
-    UpdateWeightEntries |
-    UpdateWeightEntriesFail |
-    UpdateWeightEntriesSuccess |
-    DeleteWeightEntries |
-    DeleteWeightEntriesFail |
-    DeleteWeightEntriesSuccess;
+    InsertWeightEntry |
+    InsertWeightEntryFail |
+    InsertWeightEntrySuccess |
+    UpdateWeightEntry |
+    UpdateWeightEntryFail |
+    UpdateWeightEntrySuccess |
+    DeleteWeightEntry |
+    DeleteWeightEntryFail |
+    DeleteWeightEntrySuccess;
