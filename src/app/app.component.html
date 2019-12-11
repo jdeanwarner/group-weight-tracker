@@ -16,6 +16,20 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-item *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()">
+            <ion-icon slot="start" name="log-out"></ion-icon>
+            <ion-label>
+              Sign Out
+            </ion-label>
+          </ion-item>
+          <ng-template #login>
+            <ion-item>
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label (click)="auth.googleSignin()">
+                Login with Google
+              </ion-label>
+            </ion-item>
+          </ng-template>
         </ion-list>
       </ion-content>
     </ion-menu>

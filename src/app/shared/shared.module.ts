@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { WeightService } from './weight.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   providers: [
-    WeightService
+    WeightService,
+    AuthService
   ]
 })
 export class SharedModule { }
