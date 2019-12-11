@@ -18,6 +18,11 @@ export const getAllWeightEntries = createSelector(
     }
 );
 
+export const getWeightEntry = (id: string) => createSelector(
+    getWeightEntriesEntites,
+    (entities) => entities[id]
+);
+
 
 export const getWeightEntriesLoading = createSelector(getWeightEntriesState, fromWeightEntries.getWeightEntriesLoading);
 export const getWeightEntriesLoaded = createSelector(getWeightEntriesState, fromWeightEntries.getWeightEntriesLoaded);
