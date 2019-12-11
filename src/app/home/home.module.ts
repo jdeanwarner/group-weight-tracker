@@ -5,6 +5,11 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { effects, reducers } from './store';
+
+
 
 @NgModule({
   imports: [
@@ -16,7 +21,9 @@ import { HomePage } from './home.page';
         path: '',
         component: HomePage
       }
-    ])
+    ]),
+    StoreModule.forFeature('log', reducers),
+    EffectsModule.forFeature(effects)
   ],
   declarations: [HomePage]
 })

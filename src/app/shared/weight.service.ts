@@ -54,4 +54,8 @@ export class WeightService {
   updateWeightEntry(entry: WeightEntry): Promise<void> {
     return this.db.collection('weightEntries').doc(entry.id).set(entry);
   }
+
+  deleteWeightEntry(id: string): Promise<void> {
+    return this.db.collection('weightEntries').doc(id).delete();
+  }
 }
