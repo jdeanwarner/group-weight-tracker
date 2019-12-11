@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { effects, reducers } from './store';
+import { WeightEntriesResolver } from './weight-entries.resolver';
 
 
 
@@ -19,11 +20,15 @@ import { effects, reducers } from './store';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: HomePage,
+        resolve: [WeightEntriesResolver]
       }
     ]),
-    StoreModule.forFeature('log', reducers),
+    StoreModule.forFeature('weightEntries', reducers),
     EffectsModule.forFeature(effects)
+  ],
+  providers: [
+    WeightEntriesResolver
   ],
   declarations: [HomePage]
 })
