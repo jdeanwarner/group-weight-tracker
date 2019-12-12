@@ -32,7 +32,7 @@ export class WeightService {
   getWeightEntries(): Observable<WeightEntry[]> {
     const request = (user: User) => this.db.collection<WeightEntry>('weightEntries', ref =>
       ref.where('userId', '==', user.uid)
-        .orderBy('date', 'desc')).snapshotChanges()
+        .orderBy('date', 'asc')).snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<WeightEntry>[]) => {
         return actions.map((a: DocumentChangeAction<WeightEntry>) => {

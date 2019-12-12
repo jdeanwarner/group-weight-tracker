@@ -28,6 +28,7 @@
     "@ngrx/router-store": "^8.5.2",
     "@ngrx/store": "^8.5.2",
     "@ngrx/store-devtools": "^8.5.2",
+    "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
     "firebase": "^7.5.2",
     "rxjs": "~6.5.1",

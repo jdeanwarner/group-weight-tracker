@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { WeightEntry } from '../shared/weight-entry';
 import * as fromStore from './store';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import * as fromStore from './store';
 export class HomePage implements OnInit {
 
   weightEntries$: Observable<WeightEntry[]>;
+  chart: Chart;
 
   constructor(private store: Store<fromStore.WeightState>) {}
 
