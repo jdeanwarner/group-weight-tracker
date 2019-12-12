@@ -12,13 +12,15 @@ export class WeightChartComponent implements OnInit {
   chart: Chart;
 
   @Input() set weightEntries( entries: WeightEntry[]) {
+
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: this.getLabels(entries),
         datasets: [
           {
-            data: this.getDataSet(entries),
+            data: entries.map(entry => {
+              return { x: entry.date.toDate(), y: entry.value  };
+            }),
             borderColor: '#00AEFF',
             fill: false,
             spanGaps: true,
@@ -33,7 +35,11 @@ export class WeightChartComponent implements OnInit {
         },
         scales: {
           xAxes: [{
-            display: true
+            type: 'time',
+            ticks: {
+                autoSkip: true,
+                maxTicksLimit: 20
+            }
           }],
           yAxes: [{
             display: true
@@ -47,44 +53,6 @@ export class WeightChartComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-
-  getLabels(entries: WeightEntry[]): string[] {
-    const days: string[] = [];
-    if (entries.length > 0) {
-      const date = entries[0].date.toDate();
-      const lastDate = entries[entries.length - 1].date.toDate();
-
-      while (date <= lastDate) {
-        days.push(date.toDateString());
-        date.setDate(date.getDate() + 1);
-      }
-    }
-
-    return days;
-
-  }
-
-  getDataSet(entries: WeightEntry[]): number[] {
-    const data: number [] = [];
-    if (entries.length > 0) {
-      entries.forEach((entry, index) => {
-        if (index === 0 || index === entries.length) {
-          data.push(entry.value);
-        } else {
-          const nextDate = entries[index - 1].date.toDate();
-          nextDate.setDate(nextDate.getDate() + 1);
-          while (nextDate.getDate() !== entry.date.toDate().getDate()) {
-            data.push(null);
-            nextDate.setDate(nextDate.getDate() + 1);
-          }
-
-          data.push(entry.value);
-        }
-      });
-    }
-
-    return data;
   }
 
 }

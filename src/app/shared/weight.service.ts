@@ -7,6 +7,7 @@ import { User } from './user';
 import { UserOwned } from './user-owned';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase';
+import { INIT_DATA } from './init-data';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class WeightService {
     return this.db.collection('weightEntries').doc(id).delete();
   }
 
-  /* loadInitData() {
+  loadInitData() {
       const initData: { date: string, value: string, uid: string}[] = INIT_DATA;
       let batch = this.db.firestore.batch();
       let commitCount = 1;
@@ -81,5 +82,5 @@ export class WeightService {
       });
       console.log('committing');
       batch.commit();
-  } */
+  }
 }
