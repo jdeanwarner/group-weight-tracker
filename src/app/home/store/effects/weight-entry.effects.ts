@@ -22,7 +22,10 @@ export class WeightEntryEffects {
         return this.weightService.getWeightEntries()
           .pipe(
             map((weightEntries: WeightEntry[]) => (new weightEntryActions.LoadWeightEntriesSuccess(weightEntries))),
-            catchError(error => of(new weightEntryActions.LoadWeightEntriesFail(error)))
+            catchError(error => {
+                console.log(error);
+                return of(new weightEntryActions.LoadWeightEntriesFail(error));
+            })
           );
         }
       )

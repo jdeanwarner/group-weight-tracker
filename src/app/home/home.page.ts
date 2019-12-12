@@ -1,3 +1,4 @@
+import { WeightService } from './../shared/weight.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -15,7 +16,7 @@ export class HomePage implements OnInit {
   weightEntries$: Observable<WeightEntry[]>;
   chart: Chart;
 
-  constructor(private store: Store<fromStore.WeightState>) {}
+  constructor(private store: Store<fromStore.WeightState>, private weightService: WeightService) {}
 
   ngOnInit(): void {
     this.weightEntries$ = this.store.select(fromStore.getAllWeightEntries);

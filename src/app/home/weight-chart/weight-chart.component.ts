@@ -9,17 +9,21 @@ import { WeightEntry } from 'src/app/shared/weight-entry';
 })
 export class WeightChartComponent implements OnInit {
 
+  chart: Chart;
+
   @Input() set weightEntries( entries: WeightEntry[]) {
-    console.log(entries.map((entry => entry.date.toDate().toISOString())));
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: entries.map((entry => entry.date.toDate().toDateString())),
+        labels: this.getLabels(entries),
         datasets: [
           {
-            data: entries.map((entry => entry.value)),
+            data: this.getDataSet(entries),
             borderColor: '#00AEFF',
-            fill: false
+            fill: false,
+            spanGaps: true,
+            lineTension: 0,
+            pointRadius: 1
           }
         ]
       },
@@ -39,12 +43,48 @@ export class WeightChartComponent implements OnInit {
     });
   }
 
-  chart: Chart;
-
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  getLabels(entries: WeightEntry[]): string[] {
+    const days: string[] = [];
+    if (entries.length > 0) {
+      const date = entries[0].date.toDate();
+      const lastDate = entries[entries.length - 1].date.toDate();
+
+      while (date <= lastDate) {
+        days.push(date.toDateString());
+        date.setDate(date.getDate() + 1);
+      }
+    }
+
+    return days;
+
+  }
+
+  getDataSet(entries: WeightEntry[]): number[] {
+    const data: number [] = [];
+    if (entries.length > 0) {
+      entries.forEach((entry, index) => {
+        if (index === 0 || index === entries.length) {
+          data.push(entry.value);
+        } else {
+          const nextDate = entries[index - 1].date.toDate();
+          nextDate.setDate(nextDate.getDate() + 1);
+          while (nextDate.getDate() !== entry.date.toDate().getDate()) {
+            data.push(null);
+            nextDate.setDate(nextDate.getDate() + 1);
+          }
+
+          data.push(entry.value);
+        }
+      });
+    }
+
+    return data;
   }
 
 }
