@@ -1,3 +1,4 @@
+import { WeightEntryListComponent } from './weight-entry-list/weight-entry-list.component';
 import { WeightChartComponent } from './weight-chart/weight-chart.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -35,6 +36,6 @@ import { WeightEntriesResolver } from './weight-entries.resolver';
   providers: [
     WeightEntriesResolver
   ],
-  declarations: [HomePage, WeightChartComponent]
+  declarations: [HomePage, WeightChartComponent, WeightEntryListComponent]
 })
 export class HomePageModule {}
