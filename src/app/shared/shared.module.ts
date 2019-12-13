@@ -3,6 +3,8 @@ import { WeightService } from './weight.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from './user.service';
+import { GroupService } from './group.service';
 
 
 
@@ -15,7 +17,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     WeightService,
-    AuthService
+    AuthService,
+    UserService,
+    GroupService
   ],
   exports: [
     FormsModule,
