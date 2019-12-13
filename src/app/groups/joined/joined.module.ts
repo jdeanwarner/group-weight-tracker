@@ -1,3 +1,4 @@
+import { JoinedListComponent } from './joined-list/joined-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,6 @@ import { JoinedPage } from './joined.page';
     IonicModule,
     JoinedPageRoutingModule
   ],
-  declarations: [JoinedPage]
+  declarations: [JoinedPage, JoinedListComponent]
 })
 export class JoinedPageModule {}

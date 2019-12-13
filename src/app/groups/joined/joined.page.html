@@ -1,9 +1,14 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>joined</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>My Groups</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <app-joined-list></app-joined-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/groups/0/manage']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -21,11 +21,11 @@ const routes: Routes = [
                 loadChildren: () => import('./invitations/invitations.module').then( m => m.InvitationsPageModule)
             },
             {
-                path: 'group',
+                path: ':id',
                 loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
             },
             {
-                path: 'manage-group',
+                path: ':id/manage',
                 loadChildren: () => import('./manage-group/manage-group.module').then( m => m.ManageGroupPageModule)
             }
         ]
