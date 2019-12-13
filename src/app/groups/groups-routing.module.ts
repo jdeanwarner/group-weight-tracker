@@ -7,22 +7,28 @@ const routes: Routes = [
     {
         path: '',
         component: GroupsPage,
-    },
-    {
-        path: 'joined',
-        loadChildren: () => import('./joined/joined.module').then( m => m.JoinedPageModule)
-    },
-    {
-        path: 'invitations',
-        loadChildren: () => import('./invitations/invitations.module').then( m => m.InvitationsPageModule)
-    },
-    {
-        path: 'group',
-        loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
-    },
-    {
-        path: 'manage-group',
-        loadChildren: () => import('./manage-group/manage-group.module').then( m => m.ManageGroupPageModule)
+        children: [
+            {
+                path: '',
+                redirectTo: 'joined'
+            },
+            {
+                path: 'joined',
+                loadChildren: () => import('./joined/joined.module').then( m => m.JoinedPageModule)
+            },
+            {
+                path: 'invitations',
+                loadChildren: () => import('./invitations/invitations.module').then( m => m.InvitationsPageModule)
+            },
+            {
+                path: 'group',
+                loadChildren: () => import('./group/group.module').then( m => m.GroupPageModule)
+            },
+            {
+                path: 'manage-group',
+                loadChildren: () => import('./manage-group/manage-group.module').then( m => m.ManageGroupPageModule)
+            }
+        ]
     }
 ];
 
