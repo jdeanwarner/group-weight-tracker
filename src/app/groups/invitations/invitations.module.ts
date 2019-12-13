@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 
-import { GroupsPage } from './groups.page';
-import { GroupsRoutingModule } from './groups-routing.module';
+import { IonicModule } from '@ionic/angular';
+
+import { InvitationsPageRoutingModule } from './invitations-routing.module';
+
+import { InvitationsPage } from './invitations.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GroupsRoutingModule
+    InvitationsPageRoutingModule
   ],
-  declarations: [GroupsPage]
+  declarations: [InvitationsPage]
 })
-export class GroupsPageModule {}
+export class InvitationsPageModule {}
