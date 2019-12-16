@@ -14,8 +14,7 @@ export class UserService {
 
   getUsersByName(name: string): Observable<User[]> {
     return this.db.collection<User>('users', ref =>
-      ref.where('displayName', '==', name)
-        .orderBy('displayName', 'asc')).snapshotChanges()
+      ref.where('displayName', '==', name)).snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<User>[]) => {
         return actions.map((a: DocumentChangeAction<User>) => {

@@ -1,0 +1,71 @@
+<ion-item-divider></ion-item-divider>
+<ion-grid>
+  <form [formGroup]="formGroup">
+    <ion-row>
+      <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+        <ion-list>
+          <ion-radio-group ngDefaultControl formControlName="userType">
+            <ion-list-header>
+              <ion-label>User Type</ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label>App User</ion-label>
+              <ion-radio slot="start" value="app" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Anonymous User</ion-label>
+              <ion-radio slot="start" value="anon"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="formGroup.get('userType').value === 'app'">
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="3">
+          <ion-item>
+            <ion-label position="floating">Add User</ion-label>
+            <ion-input formControlName="displayName" (ionChange)="onUserNameChange()" debounce="400"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+          <ion-card *ngIf="showSearchResults">
+            <ion-card-content>
+              <div *ngIf="users && users.length > 0">
+                <ion-item *ngFor="let user of users" lines="none" (click)="onUserSelected(user)">
+                  <ion-label>{{ user.displayName }} -- {{ user.email }}</ion-label>
+                </ion-item>
+              </div>
+              <div *ngIf="!users || users.length === 0">
+                <ion-item lines="none">
+                  <ion-label>User Not Found</ion-label>
+                </ion-item>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="formGroup.get('userType').value === 'anon'">
+      <ion-row>
+        <ion-col size-lg="4" offset-lg="3">
+          <ion-item>
+            <ion-label position="floating">Nickname</ion-label>
+            <ion-input formControlName="nickname" debounce="400"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-align-items-end">
+        <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+          <ion-button color="primary">
+            <ion-icon name="add" slot="start"></ion-icon>
+            Add
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </form>
+</ion-grid>
+<ion-item-divider></ion-item-divider>

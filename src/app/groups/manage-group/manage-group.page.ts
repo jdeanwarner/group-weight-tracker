@@ -1,5 +1,11 @@
+import { LoadUsersByName } from './../store/actions/user.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../store';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/shared/user';
+
 
 @Component({
   selector: 'app-manage-group',
@@ -9,13 +15,25 @@ import { FormGroup, FormControl, FormArray } from '@angular/forms';
 export class ManageGroupPage implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
-    name: new FormControl(),
-    users: new FormArray([])
+    name: new FormControl()
   });
 
-  constructor() { }
+  searchUsers$: Observable<User[]>;
+
+  constructor(private store: Store<fromStore.GroupsState>) {
+    this.searchUsers$ = this.store.select(fromStore.getUserByNameData);
+  }
 
   ngOnInit() {
   }
 
+  onUserNameChange(name: string) {
+    if (name) {
+      this.store.dispatch(new LoadUsersByName(name));
+    }
+  }
+
+  onUserAdded(user: User) {
+    console.log(user);
+  }
 }
