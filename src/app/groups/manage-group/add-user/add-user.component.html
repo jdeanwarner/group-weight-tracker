@@ -1,8 +1,7 @@
-<ion-item-divider></ion-item-divider>
-<ion-grid>
+<ion-grid no-padding>
   <form [formGroup]="formGroup">
     <ion-row>
-      <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+      <ion-col class="ion-text-end ion-no-padding">
         <ion-list>
           <ion-radio-group ngDefaultControl formControlName="userType">
             <ion-list-header>
@@ -22,7 +21,7 @@
     </ion-row>
     <div *ngIf="formGroup.get('userType').value === 'app'">
       <ion-row>
-        <ion-col size-lg="4" offset-lg="3">
+        <ion-col class="ion-no-padding">
           <ion-item>
             <ion-label position="floating">Add User</ion-label>
             <ion-input formControlName="displayName" (ionChange)="onUserNameChange()" debounce="400"></ion-input>
@@ -30,7 +29,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+        <ion-col class="ion-text-end ion-no-padding">
           <ion-card *ngIf="showSearchResults">
             <ion-card-content>
               <div *ngIf="users && users.length > 0">
@@ -50,22 +49,25 @@
     </div>
     <div *ngIf="formGroup.get('userType').value === 'anon'">
       <ion-row>
-        <ion-col size-lg="4" offset-lg="3">
+        <ion-col class="ion-no-padding">
           <ion-item>
             <ion-label position="floating">Nickname</ion-label>
-            <ion-input formControlName="nickname" debounce="400"></ion-input>
+            <ion-input formControlName="displayName" debounce="400"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-align-items-end">
-        <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
-          <ion-button color="primary">
-            <ion-icon name="add" slot="start"></ion-icon>
-            Add
-          </ion-button>
-        </ion-col>
-      </ion-row>
     </div>
+    <ion-row class="ion-padding-top">
+      <ion-col class="ion-text-end ion-no-padding" >
+        <ion-button color="primary" *ngIf="formGroup.get('userType').value === 'anon'" (click)="addAnonUser()">
+          <ion-icon name="add" slot="start"></ion-icon>
+          Add
+        </ion-button>
+        <ion-button color="danger" (click)="cancel()">
+          <ion-icon name="close" slot="start"></ion-icon>
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
   </form>
 </ion-grid>
-<ion-item-divider></ion-item-divider>

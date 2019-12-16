@@ -18,6 +18,9 @@ export class ManageGroupPage implements OnInit {
     name: new FormControl()
   });
 
+  userList: User[] = [];
+  showAddUser = false;
+
   searchUsers$: Observable<User[]>;
 
   constructor(private store: Store<fromStore.GroupsState>) {
@@ -34,6 +37,17 @@ export class ManageGroupPage implements OnInit {
   }
 
   onUserAdded(user: User) {
-    console.log(user);
+    if (user) {
+      this.userList.push(user);
+    }
+    this.showAddUser = false;
+  }
+
+  addUser() {
+    this.showAddUser = true;
+  }
+
+  deleteUser(index: number) {
+    this.userList.splice(index);
   }
 }

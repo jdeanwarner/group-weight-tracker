@@ -16,8 +16,7 @@ export class AddUserComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     userType: new FormControl(),
-    displayName: new FormControl(),
-    nickname: new FormControl()
+    displayName: new FormControl()
   });
 
   showSearchResults = false;
@@ -38,6 +37,17 @@ export class AddUserComponent implements OnInit {
     if (user) {
       this.userAdded.emit(user);
     }
+  }
+
+  addAnonUser() {
+    const name = this.formGroup.get('displayName').value;
+    if (name) {
+      this.onUserSelected({ displayName: name } as User);
+    }
+  }
+
+  cancel() {
+    this.userAdded.emit(null);
   }
 
 }

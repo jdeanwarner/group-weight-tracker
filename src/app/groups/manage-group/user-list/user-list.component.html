@@ -1,3 +1,9 @@
-<p>
-  user-list works!
-</p>
+<ion-list *ngIf="users.length > 0">
+  <ion-list-header>
+    <ion-label>Users</ion-label>
+  </ion-list-header>
+  <ion-item *ngFor="let user of users; let i = index">
+    <ion-label>{{ user.displayName }}</ion-label>
+    <ion-icon slot="end" name="trash" (click)="deleteItem(i)"></ion-icon>
+  </ion-item>
+</ion-list>
