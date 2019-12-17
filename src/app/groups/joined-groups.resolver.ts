@@ -1,5 +1,5 @@
-import { LoadGroups } from './../store/actions/group.actions';
-import * as fromStore from '../store';
+import { LoadGroups } from './store/actions/group.actions';
+import * as fromStore from './store';
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';

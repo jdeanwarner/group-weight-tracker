@@ -8,6 +8,7 @@ import { UserOwned } from './user-owned';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase';
 import { INIT_DATA } from './init-data';
+import { Group } from './group';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,21 @@ export class WeightService {
     );
 
     return this.makeUserOwnedGetRequest(request);
+  }
+
+  getWeightEntriesForGroup(group: Group): Observable<WeightEntry[]> {
+    return this.db.collection<WeightEntry>('weightEntries', ref =>
+      ref.where('uid', 'in', group.users)
+        .orderBy('date', 'asc')).snapshotChanges()
+    .pipe(
+      map((actions: DocumentChangeAction<WeightEntry>[]) => {
+        return actions.map((a: DocumentChangeAction<WeightEntry>) => {
+          const data: WeightEntry = a.payload.doc.data();
+          data.id = a.payload.doc.id;
+          return data;
+        });
+      })
+    );
   }
 
   insertWeightEntry(weight: WeightEntry): Promise<DocumentReference> {

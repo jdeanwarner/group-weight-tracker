@@ -1,22 +1,23 @@
 import { WeightEntry } from './../../../shared/weight-entry';
 import { Action } from '@ngrx/store';
 import { DocumentReference } from '@angular/fire/firestore';
+import { Group } from 'src/app/shared/group';
 
-export const LOAD_WEIGHT_ENTRIES = '[home] Load Weight Entries';
-export const LOAD_WEIGHT_ENTRIES_SUCCESS = '[home] Load Weight Entries Success';
-export const LOAD_WEIGHT_ENTRIES_FAIL = '[home] Load Weight Entries Fail';
+export const LOAD_WEIGHT_ENTRIES = '[weight] Load Weight Entries';
+export const LOAD_WEIGHT_ENTRIES_SUCCESS = '[weight] Load Weight Entries Success';
+export const LOAD_WEIGHT_ENTRIES_FAIL = '[weight] Load Weight Entries Fail';
 
-export const INSERT_WEIGHT_ENTRIES = '[home] Insert Weight Entries';
-export const INSERT_WEIGHT_ENTRIES_SUCCESS = '[home] Insert Weight Entries Success';
-export const INSERT_WEIGHT_ENTRIES_FAIL = '[home] Insert Weight Entries Fail';
+export const INSERT_WEIGHT_ENTRIES = '[weight] Insert Weight Entries';
+export const INSERT_WEIGHT_ENTRIES_SUCCESS = '[weight] Insert Weight Entries Success';
+export const INSERT_WEIGHT_ENTRIES_FAIL = '[weight] Insert Weight Entries Fail';
 
-export const UPDATE_WEIGHT_ENTRIES = '[home] Update Weight Entries';
-export const UPDATE_WEIGHT_ENTRIES_SUCCESS = '[home] Update Weight Entries Success';
-export const UPDATE_WEIGHT_ENTRIES_FAIL = '[home] Update Weight Entries Fail';
+export const UPDATE_WEIGHT_ENTRIES = '[weight] Update Weight Entries';
+export const UPDATE_WEIGHT_ENTRIES_SUCCESS = '[weight] Update Weight Entries Success';
+export const UPDATE_WEIGHT_ENTRIES_FAIL = '[weight] Update Weight Entries Fail';
 
-export const DELETE_WEIGHT_ENTRIES = '[home] Delete Weight Entries';
-export const DELETE_WEIGHT_ENTRIES_SUCCESS = '[home] Delete Weight Entries Success';
-export const DELETE_WEIGHT_ENTRIES_FAIL = '[home] Delete Weight Entries Fail';
+export const DELETE_WEIGHT_ENTRIES = '[weight] Delete Weight Entries';
+export const DELETE_WEIGHT_ENTRIES_SUCCESS = '[weight] Delete Weight Entries Success';
+export const DELETE_WEIGHT_ENTRIES_FAIL = '[weight] Delete Weight Entries Fail';
 
 export class LoadWeightEntries implements Action {
     readonly type = LOAD_WEIGHT_ENTRIES;

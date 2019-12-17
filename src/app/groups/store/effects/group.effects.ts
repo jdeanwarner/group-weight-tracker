@@ -1,3 +1,4 @@
+import { WeightService } from './../../../shared/weight.service';
 import { GroupService } from './../../../shared/group.service';
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
@@ -7,6 +8,7 @@ import { Action } from '@ngrx/store';
 import * as groupActions from '../actions/group.actions';
 import { DocumentReference } from '@angular/fire/firestore';
 import { Group } from 'src/app/shared/group';
+import { WeightEntry } from 'src/app/shared/weight-entry';
 
 @Injectable()
 export class GroupEffects {
@@ -14,6 +16,7 @@ export class GroupEffects {
   constructor(
     private actions$: Actions,
     private groupService: GroupService,
+    private weightService: WeightService
   ) {}
 
   loadGroups$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -62,4 +65,20 @@ export class GroupEffects {
       )
     )
   );
+
+  loadWeightEntriesForGroup$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(groupActions.LOAD_WEIGHT_ENTRIES_FOR_GROUP),
+    switchMap((activity: groupActions.LoadWeightEntriesForGroup) => {
+      return this.weightService.getWeightEntriesForGroup(activity.playload)
+        .pipe(
+          map((weightEntries: WeightEntry[]) => (new groupActions.LoadWeightEntriesForGroupSuccess(weightEntries))),
+          catchError(error => {
+              console.log(error);
+              return of(new groupActions.LoadWeightEntriesForGroupFail(error));
+          })
+        );
+      }
+    )
+  )
+);
 }

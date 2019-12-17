@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { GroupPageRoutingModule } from './group-routing.module';
 
 import { GroupPage } from './group.page';
+import { GroupResolver } from './group.resolver';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { GroupPage } from './group.page';
     IonicModule,
     GroupPageRoutingModule
   ],
-  declarations: [GroupPage]
+  declarations: [GroupPage],
+  providers: [ GroupResolver ]
 })
 export class GroupPageModule {}

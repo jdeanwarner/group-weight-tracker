@@ -48,6 +48,19 @@ export class GroupService {
     return this.makeUserOwnedGetRequest(request);
   }
 
+  getGroup(id: string): Observable<Group> {
+    return this.db.collection<Group>(`groups/${id}`).snapshotChanges()
+    .pipe(
+      map((actions: DocumentChangeAction<Group>[]) => {
+        return actions.map((a: DocumentChangeAction<Group>) => {
+          const data: Group = a.payload.doc.data();
+          data.id = a.payload.doc.id;
+          return data;
+        })[0];
+      })
+    );
+  }
+
   insertGroup(group: Group): Promise<DocumentReference> {
     return this.db.collection('groups').add(group);
   }

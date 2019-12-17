@@ -2,11 +2,13 @@ import { GroupPage } from './group/group.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GroupsPage } from './groups.page';
+import { JoinedGroupsResolver } from './joined-groups.resolver';
 
 const routes: Routes = [
     {
         path: '',
         component: GroupsPage,
+        resolve: [ JoinedGroupsResolver ],
         children: [
             {
                 path: '',

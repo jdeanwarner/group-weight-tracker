@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 
 import { GroupsPage } from './groups.page';
 import { GroupsRoutingModule } from './groups-routing.module';
+import { JoinedGroupsResolver } from './joined-groups.resolver';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from './store';
 
 @NgModule({
   imports: [
@@ -14,8 +17,11 @@ import { GroupsRoutingModule } from './groups-routing.module';
     FormsModule,
     IonicModule,
     GroupsRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('groups', reducers),
+    EffectsModule.forFeature(effects)
   ],
-  declarations: [GroupsPage]
+  declarations: [GroupsPage],
+  providers: [JoinedGroupsResolver]
 })
 export class GroupsPageModule {}

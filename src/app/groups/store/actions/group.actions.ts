@@ -1,6 +1,7 @@
 import { WeightEntry } from '../../../shared/weight-entry';
 import { Action } from '@ngrx/store';
 import { DocumentReference } from '@angular/fire/firestore';
+import { Group } from 'src/app/shared/group';
 
 export const LOAD_GROUPS = '[groups] Load Groups';
 export const LOAD_GROUPS_SUCCESS = '[groups] Load Groups Success';
@@ -17,6 +18,10 @@ export const UPDATE_GROUP_FAIL = '[groups] Update Group Fail';
 export const DELETE_GROUP = '[groups] Delete Group';
 export const DELETE_GROUP_SUCCESS = '[groups] Delete Group Success';
 export const DELETE_GROUP_FAIL = '[groups] Delete Group Fail';
+
+export const LOAD_WEIGHT_ENTRIES_FOR_GROUP = '[groups] Load Weight Entries for Group';
+export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS = '[groups] Load Weight Entries for Group Success';
+export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_FAIL = '[groups] Load Weight Entries for Group Fail';
 
 export class LoadGroups implements Action {
     readonly type = LOAD_GROUPS;
@@ -83,6 +88,24 @@ export class DeleteGroupFail implements Action {
     constructor(public playload: any) {}
 }
 
+export class LoadWeightEntriesForGroup implements Action {
+    readonly type = LOAD_WEIGHT_ENTRIES_FOR_GROUP;
+
+    constructor(public playload: Group) {}
+}
+
+export class LoadWeightEntriesForGroupSuccess implements Action {
+    readonly type = LOAD_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS;
+
+    constructor(public playload: WeightEntry[]) {}
+}
+
+export class LoadWeightEntriesForGroupFail implements Action {
+    readonly type = LOAD_WEIGHT_ENTRIES_FOR_GROUP_FAIL;
+
+    constructor(public playload: any) {}
+}
+
 
 export type GroupActions =
     LoadGroups |
@@ -96,4 +119,7 @@ export type GroupActions =
     UpdateGroupSuccess |
     DeleteGroup |
     DeleteGroupFail |
-    DeleteGroupSuccess;
+    DeleteGroupSuccess |
+    LoadWeightEntriesForGroup |
+    LoadWeightEntriesForGroupSuccess |
+    LoadWeightEntriesForGroupFail;

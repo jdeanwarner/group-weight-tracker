@@ -8,8 +8,32 @@ export const getGroupState = createSelector(
     (state: fromFeature.GroupsState) => state.groups
 );
 
-export const getGroupsData = createSelector(getGroupState, fromGroups.getGroupsData);
+export const getGroupsEntities = createSelector(getGroupState, fromGroups.getGroupsEntities);
+
+export const getAllGroupEntries = createSelector(
+    getGroupsEntities,
+    (entities) => {
+        return Object.keys(entities).map(id => entities[id]);
+    }
+);
+
+export const getGroup = ( id: string ) => createSelector(
+    getGroupsEntities,
+    (entities) => entities[id]
+);
 
 
 export const getGroupsLoading = createSelector(getGroupState, fromGroups.getGroupsLoading);
 export const getGroupsLoaded = createSelector(getGroupState, fromGroups.getGroupsLoaded);
+
+export const getWeightEntriesEntities = createSelector(getGroupState, fromGroups.getWeightEntriesEntities);
+
+export const getAllWeightEntries = createSelector(
+    getWeightEntriesEntities,
+    (entities) => {
+        return Object.keys(entities).map(id => entities[id]);
+    }
+);
+
+export const getWeightEntriesLoading = createSelector(getGroupState, fromGroups.getWeightEntriesLoading);
+export const getWeightEntriesLoaded = createSelector(getGroupState, fromGroups.getWeightEntriesLoaded);

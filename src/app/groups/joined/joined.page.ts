@@ -14,7 +14,7 @@ export class JoinedPage implements OnInit {
   joinedGroups$: Observable<Group[]>;
 
   constructor(private store: Store<fromStore.GroupsState>) {
-    this.joinedGroups$ = this.store.select(fromStore.getGroupsData);
+    this.joinedGroups$ = this.store.select(fromStore.getAllGroupEntries);
   }
 
   ngOnInit() {
