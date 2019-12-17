@@ -1,5 +1,6 @@
+import { SharedModule } from 'src/app/shared/shared.module';
 import { WeightEntryListComponent } from './weight-entry-list/weight-entry-list.component';
-import { WeightChartComponent } from './weight-chart/weight-chart.component';
+import { WeightChartComponent } from '../shared/weight-chart/weight-chart.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -31,11 +32,12 @@ import { WeightEntriesResolver } from './weight-entries.resolver';
       }
     ]),
     StoreModule.forFeature('weightEntries', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    SharedModule
   ],
   providers: [
     WeightEntriesResolver
   ],
-  declarations: [HomePage, WeightChartComponent, WeightEntryListComponent]
+  declarations: [HomePage, WeightEntryListComponent]
 })
 export class HomePageModule {}

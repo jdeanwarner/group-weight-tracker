@@ -16,6 +16,7 @@ export class GroupPage implements OnInit, OnDestroy {
   group$: Observable<Group>;
   groupsWeightEntries$: Observable<{ [userId: string]: WeightEntry[] }>;
   paramSubscription: Subscription;
+  entries: WeightEntry[][];
 
   constructor(private store: Store<fromStore.GroupsState>, private route: ActivatedRoute) {
     this.groupsWeightEntries$ = this.store.select(fromStore.getWeightEntriesEntities);
@@ -25,6 +26,14 @@ export class GroupPage implements OnInit, OnDestroy {
     this.paramSubscription = this.route.paramMap.subscribe(params => {
       this.group$ = this.store.select(fromStore.getGroup(params.get('id')));
     });
+    this.groupsWeightEntries$.subscribe( entities => {
+      console.log('sub called');
+    });
+  }
+
+  getValues(pair: { [userId: string]: WeightEntry[] }) {
+    console.log(Object.values(pair));
+    return Object.values(pair);
   }
 
   ngOnDestroy(): void {

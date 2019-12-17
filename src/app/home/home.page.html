@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <app-weight-chart class="ion-margin" [weightEntries]="weightEntries$ | async"></app-weight-chart>
+  <app-weight-chart class="ion-margin" [weightEntriesMap]="[weightEntries$]"></app-weight-chart>
   <app-weight-entry-list [weightEntries]="weightEntries$ | async"></app-weight-entry-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['./entry']">

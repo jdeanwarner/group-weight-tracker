@@ -1,3 +1,4 @@
+import { WeightChartComponent } from './weight-chart/weight-chart.component';
 import { AuthService } from './auth.service';
 import { WeightService } from './weight.service';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,9 @@ import { GroupService } from './group.service';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    WeightChartComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,7 +26,8 @@ import { GroupService } from './group.service';
   ],
   exports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    WeightChartComponent
   ]
 })
 export class SharedModule { }
