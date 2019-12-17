@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { JoinedPageRoutingModule } from './joined-routing.module';
 
 import { JoinedPage } from './joined.page';
+import { JoinedGroupsResolver } from './joined-groups.resolver';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { JoinedPage } from './joined.page';
     IonicModule,
     JoinedPageRoutingModule
   ],
-  declarations: [JoinedPage, JoinedListComponent]
+  declarations: [JoinedPage, JoinedListComponent],
+  providers: [JoinedGroupsResolver]
 })
 export class JoinedPageModule {}

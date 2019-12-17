@@ -31,8 +31,8 @@ export class GroupService {
 
   getGroups(): Observable<Group[]> {
     const request = (user: User) => this.db.collection<Group>('groups', ref =>
-      ref.where('uid', '==', user.uid)
-        .orderBy('date', 'asc')).snapshotChanges()
+      ref.where('users', 'array-contains', user.uid)
+    ).snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<Group>[]) => {
         return actions.map((a: DocumentChangeAction<Group>) => {
