@@ -19,9 +19,13 @@ export class GroupEffects {
   loadGroups$: Observable<Action> = createEffect(() => this.actions$.pipe(
       ofType(groupActions.LOAD_GROUPS),
       switchMap(() => {
+        console.log('getting groups');
         return this.groupService.getGroups()
           .pipe(
-            map((groups: Group[]) => (new groupActions.LoadGroupsSuccess(groups))),
+            map((groups: Group[]) => {
+              console.log(groups);
+              return (new groupActions.LoadGroupsSuccess(groups));
+            }),
             catchError(error => {
                 console.log(error);
                 return of(new groupActions.LoadGroupsFail(error));

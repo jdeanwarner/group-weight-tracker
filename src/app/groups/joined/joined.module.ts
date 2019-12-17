@@ -9,13 +9,18 @@ import { JoinedPageRoutingModule } from './joined-routing.module';
 
 import { JoinedPage } from './joined.page';
 import { JoinedGroupsResolver } from './joined-groups.resolver';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from '../store';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    JoinedPageRoutingModule
+    JoinedPageRoutingModule,
+    StoreModule.forFeature('groups', reducers),
+    EffectsModule.forFeature(effects)
   ],
   declarations: [JoinedPage, JoinedListComponent],
   providers: [JoinedGroupsResolver]

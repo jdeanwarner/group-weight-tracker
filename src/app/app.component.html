@@ -23,9 +23,9 @@
             </ion-label>
           </ion-item>
           <ng-template #login>
-            <ion-item>
+            <ion-item (click)="auth.googleSignin()">
               <ion-icon slot="start" name="log-out"></ion-icon>
-              <ion-label (click)="auth.googleSignin()">
+              <ion-label>
                 Login with Google
               </ion-label>
             </ion-item>
