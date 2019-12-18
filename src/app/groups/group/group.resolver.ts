@@ -1,3 +1,4 @@
+import { SelectGroup } from './../store/actions/group.actions';
 import { switchMap, map } from 'rxjs/operators';
 import { LoadWeightEntriesForGroup } from '../store/actions/group.actions';
 import * as fromStore from '../store';
@@ -16,6 +17,7 @@ export class GroupResolver implements Resolve<void> {
     resolve(route: ActivatedRouteSnapshot): void {
         this.store.select(fromStore.getGroup(route.paramMap.get('id'))).pipe(
             map((group: Group ) => {
+                this.store.dispatch(new SelectGroup(group));
                 this.store.dispatch(new LoadWeightEntriesForGroup(group));
             })
         ).subscribe();

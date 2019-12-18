@@ -7,6 +7,8 @@ export const LOAD_GROUPS = '[groups] Load Groups';
 export const LOAD_GROUPS_SUCCESS = '[groups] Load Groups Success';
 export const LOAD_GROUPS_FAIL = '[groups] Load Groups Fail';
 
+export const SELECT_GROUP = '[groups] Group Selected';
+
 export const INSERT_GROUP = '[groups] Insert Group';
 export const INSERT_GROUP_SUCCESS = '[groups] Insert Group Success';
 export const INSERT_GROUP_FAIL = '[groups] Insert Group Fail';
@@ -37,6 +39,11 @@ export class LoadGroupsFail implements Action {
     readonly type = LOAD_GROUPS_FAIL;
 
     constructor(public playload: any) {}
+}
+
+export class SelectGroup implements Action {
+    readonly type = SELECT_GROUP;
+    constructor(public playload: Group) {}
 }
 
 export class InsertGroup implements Action {
@@ -111,6 +118,7 @@ export type GroupActions =
     LoadGroups |
     LoadGroupsFail |
     LoadGroupsSuccess |
+    SelectGroup |
     InsertGroup |
     InsertGroupFail |
     InsertGroupSuccess |

@@ -26,6 +26,8 @@ export const getGroup = ( id: string ) => createSelector(
 export const getGroupsLoading = createSelector(getGroupState, fromGroups.getGroupsLoading);
 export const getGroupsLoaded = createSelector(getGroupState, fromGroups.getGroupsLoaded);
 
+export const getSelectedGroup = createSelector(getGroupState, fromGroups.getSelectedGroup);
+
 export const getWeightEntriesEntities = createSelector(getGroupState, fromGroups.getWeightEntriesEntities);
 
 export const getAllWeightEntries = createSelector(
