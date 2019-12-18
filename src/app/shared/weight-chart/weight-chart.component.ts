@@ -1,5 +1,5 @@
 import { Chart } from 'chart.js';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 
 @Component({
@@ -14,8 +14,9 @@ export class WeightChartComponent implements OnInit, OnDestroy {
 
   @Input() set weightEntriesMap( entriesMap: { [userId: string]: WeightEntry[] } ) {
 
-    if (entriesMap && Object.values(entriesMap).length > 0 ) {
-      this.chart = new Chart('canvas', {
+    if (entriesMap && Object.values(entriesMap).length > 0 && Object.values(entriesMap)[0].length > 0) {
+
+      this.chart = new Chart('chart', {
         type: 'line',
         data: {
           datasets: Object.values(entriesMap).map((entries: WeightEntry[], index: number) => {
