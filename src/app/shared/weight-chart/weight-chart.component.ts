@@ -1,5 +1,5 @@
 import { Chart } from 'chart.js';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 
 @Component({
@@ -7,20 +7,39 @@ import { WeightEntry } from 'src/app/shared/weight-entry';
   templateUrl: './weight-chart.component.html',
   styleUrls: ['./weight-chart.component.scss'],
 })
-export class WeightChartComponent implements OnInit {
+export class WeightChartComponent implements OnInit, OnDestroy {
 
   chart: Chart;
+  chartColor = ['#00AEFF', '#DC143C', '#B8860B', '#006400', '#2F4F4F', '#FFD700'];
 
   @Input() set weightEntriesMap( entriesMap: { [userId: string]: WeightEntry[] } ) {
 
-    console.log(entriesMap);
-    if (entriesMap) {
+    if (entriesMap && Object.values(entriesMap).length > 0 ) {
       this.chart = new Chart('canvas', {
         type: 'line',
         data: {
-          datasets: []
+          datasets: Object.values(entriesMap).map((entries: WeightEntry[], index: number) => {
+            return {
+              data: entries.map(entry => {
+                return { x: entry.date.toDate(), y: entry.value  };
+              }),
+              borderColor: this.chartColor[index],
+              fill: false,
+              spanGaps: true,
+              lineTension: 0,
+              pointRadius: 1
+            };
+          })
         },
         options: {
+         responsive: true,
+          animation: {
+              duration: 0
+          },
+          hover: {
+              animationDuration: 0
+          },
+          responsiveAnimationDuration: 0,
           legend: {
             display: false
           },
@@ -38,19 +57,6 @@ export class WeightChartComponent implements OnInit {
           }
         }
       });
-
-      Object.values(entriesMap).forEach((entries: WeightEntry[]) => {
-        this.chart.data.datasets.push({
-          data: entries.map(entry => {
-            return { x: entry.date.toDate(), y: entry.value  };
-          }),
-          borderColor: '#00AEFF',
-          fill: false,
-          spanGaps: true,
-          lineTension: 0,
-          pointRadius: 1
-        });
-      });
     }
   }
 
@@ -58,6 +64,10 @@ export class WeightChartComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngOnDestroy(): void {
+    this.chart = null;
   }
 
 }
