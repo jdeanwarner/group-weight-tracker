@@ -1,10 +1,11 @@
+import { User } from 'src/app/shared/user';
 import { Group } from './../../../shared/group';
 
 import * as groupActions from '../actions/group.actions';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 
 export interface GroupState {
-    info: {
+    list: {
         entities: { [userId: string]: Group };
         loaded: boolean;
         loading: boolean;
@@ -15,16 +16,26 @@ export interface GroupState {
         loaded: boolean;
         loading: boolean;
     };
+    users: {
+        entities: { [userId: string]: User };
+        loaded: boolean;
+        loading: boolean;
+    };
 }
 
 export const initialState: GroupState = {
-    info: {
+    list: {
         entities: {},
         loaded: false,
         loading: false
     },
     selected : null,
     entries: {
+        entities: {},
+        loaded: false,
+        loading: false
+    },
+    users: {
         entities: {},
         loaded: false,
         loading: false
@@ -46,29 +57,55 @@ function getGroupEntities(entries: WeightEntry[]): { [userId: string]: WeightEnt
 export function reducer(state: GroupState = initialState, action: groupActions.GroupActions): GroupState {
     switch (action.type) {
         case groupActions.LOAD_GROUPS: {
-            state.info.loading = true;
-            state.info.loaded = false;
+            state.list.loading = true;
+            state.list.loaded = false;
             return state;
         }
         case groupActions.LOAD_GROUPS_SUCCESS: {
             return {
                 ... state,
-                info: {
+                list: {
                     loading: false,
                     loaded: true,
                     entities : action.playload.reduce(
-                        (map: { [id: number]: WeightEntry }, entry) => {
+                        (map: { [id: number]: Group }, group) => {
                             return {
                                 ... map,
-                                [entry.id]: entry
+                                [group.id]: group
                             };
                     }, {})
                 }
             };
         }
         case groupActions.LOAD_GROUPS_FAIL: {
-            state.info.loading = false;
-            state.info.loaded = false;
+            state.list.loading = false;
+            state.list.loaded = false;
+            return state;
+        }
+        case groupActions.LOAD_GROUP_USERS: {
+            state.users.loading = true;
+            state.users.loaded = false;
+            return state;
+        }
+        case groupActions.LOAD_GROUP_USERS_SUCCESS: {
+            return {
+                ... state,
+                users: {
+                    loading: false,
+                    loaded: true,
+                    entities : action.playload.reduce(
+                        (map: { [id: number]: User }, user) => {
+                            return {
+                                ... map,
+                                [user.uid]: user
+                            };
+                    }, {})
+                }
+            };
+        }
+        case groupActions.LOAD_GROUPS_FAIL: {
+            state.users.loading = false;
+            state.users.loaded = false;
             return state;
         }
         case groupActions.SELECT_GROUP : {
@@ -100,9 +137,13 @@ export function reducer(state: GroupState = initialState, action: groupActions.G
     }
 }
 
-export const getGroupsLoading = (state: GroupState) => state.info.loading;
-export const getGroupsLoaded = (state: GroupState) => state.info.loaded;
-export const getGroupsEntities = (state: GroupState) => state.info.entities;
+export const getGroupsLoading = (state: GroupState) => state.list.loading;
+export const getGroupsLoaded = (state: GroupState) => state.list.loaded;
+export const getGroupsEntities = (state: GroupState) => state.list.entities;
+
+export const getGroupUsersLoading = (state: GroupState) => state.users.loading;
+export const getGroupUsersLoaded = (state: GroupState) => state.users.loaded;
+export const getGroupUsersEntities = (state: GroupState) => state.users.entities;
 
 export const getSelectedGroup = (state: GroupState) => state.selected;
 

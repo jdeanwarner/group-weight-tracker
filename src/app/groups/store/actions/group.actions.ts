@@ -2,6 +2,7 @@ import { WeightEntry } from '../../../shared/weight-entry';
 import { Action } from '@ngrx/store';
 import { DocumentReference } from '@angular/fire/firestore';
 import { Group } from 'src/app/shared/group';
+import { User } from 'src/app/shared/user';
 
 export const LOAD_GROUPS = '[groups] Load Groups';
 export const LOAD_GROUPS_SUCCESS = '[groups] Load Groups Success';
@@ -25,6 +26,10 @@ export const LOAD_WEIGHT_ENTRIES_FOR_GROUP = '[groups] Load Weight Entries for G
 export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS = '[groups] Load Weight Entries for Group Success';
 export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_FAIL = '[groups] Load Weight Entries for Group Fail';
 
+export const LOAD_GROUP_USERS = '[groups] Load Group Users';
+export const LOAD_GROUP_USERS_SUCCESS = '[groups] Load Group Users Success';
+export const LOAD_GROUP_USERS_FAIL = '[groups] Load Group Users Fail';
+
 export class LoadGroups implements Action {
     readonly type = LOAD_GROUPS;
 }
@@ -37,6 +42,24 @@ export class LoadGroupsSuccess implements Action {
 
 export class LoadGroupsFail implements Action {
     readonly type = LOAD_GROUPS_FAIL;
+
+    constructor(public playload: any) {}
+}
+
+export class LoadGroupUsers implements Action {
+    readonly type = LOAD_GROUP_USERS;
+
+    constructor(public playload: Group) {}
+}
+
+export class LoadGroupUsersSuccess implements Action {
+    readonly type = LOAD_GROUP_USERS_SUCCESS;
+
+    constructor(public playload: User[]) {}
+}
+
+export class LoadGroupUsersFail implements Action {
+    readonly type = LOAD_GROUP_USERS_FAIL;
 
     constructor(public playload: any) {}
 }
@@ -118,6 +141,9 @@ export type GroupActions =
     LoadGroups |
     LoadGroupsFail |
     LoadGroupsSuccess |
+    LoadGroupUsers |
+    LoadGroupUsersSuccess |
+    LoadGroupUsersFail |
     SelectGroup |
     InsertGroup |
     InsertGroupFail |

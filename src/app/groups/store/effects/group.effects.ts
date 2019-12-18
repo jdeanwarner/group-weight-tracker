@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/shared/user.service';
 import { WeightService } from './../../../shared/weight.service';
 import { GroupService } from './../../../shared/group.service';
 import { Injectable } from '@angular/core';
@@ -9,6 +10,7 @@ import * as groupActions from '../actions/group.actions';
 import { DocumentReference } from '@angular/fire/firestore';
 import { Group } from 'src/app/shared/group';
 import { WeightEntry } from 'src/app/shared/weight-entry';
+import { User } from 'src/app/shared/user';
 
 @Injectable()
 export class GroupEffects {
@@ -16,28 +18,31 @@ export class GroupEffects {
   constructor(
     private actions$: Actions,
     private groupService: GroupService,
-    private weightService: WeightService
+    private weightService: WeightService,
+    private userService: UserService
   ) {}
 
   loadGroups$: Observable<Action> = createEffect(() => this.actions$.pipe(
       ofType(groupActions.LOAD_GROUPS),
-      switchMap(() => {
-        console.log('getting groups');
-        return this.groupService.getGroups()
+      switchMap(() => this.groupService.getGroups()
           .pipe(
-            map((groups: Group[]) => {
-              console.log(groups);
-              return (new groupActions.LoadGroupsSuccess(groups));
-            }),
-            catchError(error => {
-                console.log(error);
-                return of(new groupActions.LoadGroupsFail(error));
-            })
-          );
-        }
+            map((groups: Group[]) => new groupActions.LoadGroupsSuccess(groups)),
+            catchError(error => of(new groupActions.LoadGroupsFail(error)))
+          )
       )
     )
   );
+
+  loadGroupUsers$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(groupActions.LOAD_GROUP_USERS),
+    switchMap((action: groupActions.LoadGroupUsers) => this.userService.getGroupUsers(action.playload)
+        .pipe(
+          map((users: User[]) => new groupActions.LoadGroupUsersSuccess(users)),
+          catchError(error => of(new groupActions.LoadGroupsFail(error)))
+        )
+    )
+  )
+);
 
   insertGroup$: Observable<Action> =  createEffect(() => this.actions$.pipe(
       ofType(groupActions.INSERT_GROUP),

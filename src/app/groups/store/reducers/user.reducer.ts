@@ -12,6 +12,11 @@ export interface UserState {
         loaded: boolean;
         loading: boolean;
     };
+    groupUsers: {
+        data: User[];
+        loaded: boolean;
+        loading: boolean;
+    };
 }
 
 export const initialState: UserState = {
@@ -24,6 +29,11 @@ export const initialState: UserState = {
         data: [],
         loaded: false,
         loading: false
+    },
+    groupUsers: {
+        data: [],
+        loaded: false,
+        loading: false,
     }
 };
 
