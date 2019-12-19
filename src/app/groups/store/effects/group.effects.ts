@@ -35,11 +35,14 @@ export class GroupEffects {
 
   loadGroupUsers$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(groupActions.LOAD_GROUP_USERS),
-    switchMap((action: groupActions.LoadGroupUsers) => this.userService.getGroupUsers(action.playload)
-        .pipe(
-          map((users: User[]) => new groupActions.LoadGroupUsersSuccess(users)),
-          catchError(error => of(new groupActions.LoadGroupsFail(error)))
-        )
+    switchMap((action: groupActions.LoadGroupUsers) => {
+      console.log('getting users');
+      return this.userService.getGroupUsers(action.playload)
+        .pipe(map((users: User[]) => {
+          console.log(users);
+          return new groupActions.LoadGroupUsersSuccess(users);
+        }), catchError(error => of(new groupActions.LoadGroupsFail(error))));
+    }
     )
   )
 );

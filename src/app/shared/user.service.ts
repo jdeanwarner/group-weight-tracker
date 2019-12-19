@@ -26,10 +26,12 @@ export class UserService {
   }
 
   getGroupUsers(group: Group): Observable<User[]> {
+    console.log(group);
     return this.db.collection<User>('users', ref =>
       ref.where('uid', 'in', group.users)).snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<User>[]) => {
+        console.log('returning users');
         return actions.map((a: DocumentChangeAction<User>) => {
           return a.payload.doc.data();
         });

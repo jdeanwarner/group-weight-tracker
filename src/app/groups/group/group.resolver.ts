@@ -15,9 +15,11 @@ export class GroupResolver implements Resolve<void> {
     resolve(route: ActivatedRouteSnapshot): void {
         this.store.select(fromStore.getGroup(route.paramMap.get('id'))).pipe(
             map((group: Group ) => {
-                this.store.dispatch(new SelectGroup(group));
-                this.store.dispatch(new LoadWeightEntriesForGroup(group));
-                this.store.dispatch(new LoadGroupUsers(group));
+                if (group) {
+                    this.store.dispatch(new SelectGroup(group));
+                    this.store.dispatch(new LoadWeightEntriesForGroup(group));
+                    this.store.dispatch(new LoadGroupUsers(group));
+                }
             })
         ).subscribe();
     }
