@@ -16,7 +16,7 @@ export class WeightChartComponent implements OnInit, OnDestroy {
 
   chartEl = null;
 
-  @Input() set weightEntriesMap( entriesMap: { [userId: string]: WeightEntry[] } ) {
+  @Input() set weightEntriesMap( entriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][] ) {
 
     if (entriesMap && Object.values(entriesMap).length > 0 && Object.values(entriesMap)[0].length > 0) {
 

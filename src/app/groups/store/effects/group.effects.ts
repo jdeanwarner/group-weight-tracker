@@ -4,7 +4,7 @@ import { GroupService } from './../../../shared/group.service';
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
+import { map, mergeMap, catchError, switchMap, take, takeLast } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import * as groupActions from '../actions/group.actions';
 import { DocumentReference } from '@angular/fire/firestore';
@@ -38,7 +38,8 @@ export class GroupEffects {
     switchMap((action: groupActions.LoadGroupUsers) => {
       console.log('getting users');
       return this.userService.getGroupUsers(action.playload)
-        .pipe(map((users: User[]) => {
+        .pipe(
+          map((users: User[]) => {
           console.log(users);
           return new groupActions.LoadGroupUsersSuccess(users);
         }), catchError(error => of(new groupActions.LoadGroupsFail(error))));
