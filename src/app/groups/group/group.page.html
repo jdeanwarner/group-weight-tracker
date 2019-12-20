@@ -5,5 +5,16 @@
 </ion-header>
 
 <ion-content>
-  <app-weight-chart [weightEntriesMap]="groupsWeightEntries$ | async"></app-weight-chart>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button class="ion-float-right" [routerLink]="['./manage']">Edit</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <app-weight-chart [weightEntriesMap]="groupsWeightEntries$ | async"></app-weight-chart>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

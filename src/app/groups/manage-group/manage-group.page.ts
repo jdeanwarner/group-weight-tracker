@@ -1,3 +1,4 @@
+import { Group } from 'src/app/shared/group';
 import { LoadUsersByName } from './../store/actions/user.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
@@ -22,12 +23,17 @@ export class ManageGroupPage implements OnInit {
   showAddUser = false;
 
   searchUsers$: Observable<User[]>;
+  group$: Observable<Group>;
+  groupUsers$: Observable<User[]>;
 
   constructor(private store: Store<fromStore.GroupsState>) {
     this.searchUsers$ = this.store.select(fromStore.getUserByNameData);
+    this.group$ = this.store.select(fromStore.getSelectedGroup);
+    this.groupUsers$ = this.store.select(fromStore.getAllGroupUsers);
   }
 
   ngOnInit() {
+    this.groupUsers$.subscribe(groups => this.userList = groups);
   }
 
   onUserNameChange(name: string) {

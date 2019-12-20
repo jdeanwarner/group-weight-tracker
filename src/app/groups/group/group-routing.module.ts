@@ -7,8 +7,17 @@ import { GroupResolver } from './group.resolver';
 const routes: Routes = [
   {
     path: '',
-    component: GroupPage,
-    resolve: [ GroupResolver ]
+    resolve: [ GroupResolver ],
+    children: [
+      {
+        path: '',
+        component: GroupPage,
+      },
+      {
+        path: 'manage',
+        loadChildren: () => import('../manage-group/manage-group.module').then( m => m.ManageGroupPageModule)
+      }
+    ]
   }
 ];
 
