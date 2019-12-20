@@ -121,7 +121,7 @@ export class DeleteGroupFail implements Action {
 export class LoadWeightEntriesForGroup implements Action {
     readonly type = LOAD_WEIGHT_ENTRIES_FOR_GROUP;
 
-    constructor(public playload: Group) {}
+    constructor(public playload: string[]) {}
 }
 
 export class LoadWeightEntriesForGroupSuccess implements Action {

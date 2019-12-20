@@ -10,6 +10,7 @@ import { JoinedGroupsResolver } from './joined-groups.resolver';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, effects } from './store';
+import * as fromHome from '../home/store';
 
 @NgModule({
   imports: [
@@ -19,7 +20,9 @@ import { reducers, effects } from './store';
     GroupsRoutingModule,
     SharedModule,
     StoreModule.forFeature('groups', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    StoreModule.forFeature('weightEntries', fromHome.reducers),
+    EffectsModule.forFeature(fromHome.effects)
   ],
   declarations: [GroupsPage],
   providers: [JoinedGroupsResolver]

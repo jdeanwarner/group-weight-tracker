@@ -49,9 +49,9 @@ export class WeightService {
     return this.makeUserOwnedGetRequest(request);
   }
 
-  getWeightEntriesForGroup(group: Group): Observable<WeightEntry[]> {
+  getWeightEntriesForGroup(users: string[]): Observable<WeightEntry[]> {
     return this.db.collection<WeightEntry>('weightEntries', ref =>
-      ref.where('uid', 'in', group.users)
+      ref.where('uid', 'in', users)
         .orderBy('date', 'asc')).snapshotChanges()
     .pipe(
       map((actions: DocumentChangeAction<WeightEntry>[]) => {

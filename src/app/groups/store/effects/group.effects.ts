@@ -77,8 +77,8 @@ export class GroupEffects {
 
   loadWeightEntriesForGroup$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(groupActions.LOAD_WEIGHT_ENTRIES_FOR_GROUP),
-    switchMap((activity: groupActions.LoadWeightEntriesForGroup) => {
-      return this.weightService.getWeightEntriesForGroup(activity.playload)
+    switchMap((action: groupActions.LoadWeightEntriesForGroup) => {
+      return this.weightService.getWeightEntriesForGroup(action.playload)
         .pipe(
           map((weightEntries: WeightEntry[]) => (new groupActions.LoadWeightEntriesForGroupSuccess(weightEntries))),
           catchError(error => {
