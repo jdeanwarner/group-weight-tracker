@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Chart } from 'chart.js';
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
 
@@ -9,7 +9,7 @@ import { User } from '../user';
   templateUrl: './weight-chart.component.html',
   styleUrls: ['./weight-chart.component.scss'],
 })
-export class WeightChartComponent implements OnInit, OnDestroy {
+export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
 
   multi: any[];
   view: any[] = null;
@@ -38,18 +38,30 @@ export class WeightChartComponent implements OnInit, OnDestroy {
   chartEl = null;
 
   setUsers: User[];
+  weightMap: { [userId: string]: WeightEntry[] } | WeightEntry[][];
 
   @Input() users: User[];
-  @Input() set weightEntriesMap( entriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][] ) {
+  @Input() weightEntriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][];
 
-    if (entriesMap && Object.values(entriesMap).length > 0 && Object.values(entriesMap)[0].length > 0) {
+  getUserName(entries: WeightEntry[], users: User[]) {
+    let userName = '';
+    if (users) {
+      const filteredUsers = users.filter(user => user  && user.uid === entries[0].uid);
+      if (filteredUsers && filteredUsers.length > 0) {
+        userName = filteredUsers[0].displayName;
+      }
+    }
 
+    return userName;
+  }
+
+  loadChart(entriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][], users: User[]) {
       this.view = [ this.container.nativeElement.offsetWidth ];
 
       this.multi = Object.values(entriesMap)
         .map((entries: WeightEntry[], index: number) => {
           return {
-            name: this.users ? this.users.filter(user => user.uid === entries[0].uid)[0].displayName : '',
+            name: this.getUserName(entries, users),
             series: entries
               .sort((a, b) =>
                 a.date.seconds > b.date.seconds ? 1 : a.date.seconds < b.date.seconds ? -1 : 0
@@ -62,18 +74,23 @@ export class WeightChartComponent implements OnInit, OnDestroy {
             })
           };
       });
-
-      if (this.setUsers) {
-        this.multi.map( value => {
-          value.name = this.setUsers.filter(a => a.uid === value.series[0].uid)[0].displayName;
-        });
-      }
-    }
   }
 
 
   constructor() {
 
+  }
+
+  ngOnChanges(): void {
+    if (
+      this.users &&
+      this.users.length > 0 &&
+      this.weightEntriesMap &&
+      Object.values(this.weightEntriesMap).length > 0 &&
+      Object.values(this.weightEntriesMap)[0].length > 0
+    ) {
+      this.loadChart(this.weightEntriesMap, this.users);
+    }
   }
 
   ngOnInit() {
