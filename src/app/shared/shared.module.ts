@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { WeightChartComponent } from './weight-chart/weight-chart.component';
 import { AuthService } from './auth.service';
 import { WeightService } from './weight.service';
@@ -16,7 +18,8 @@ import { GroupService } from './group.service';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule
   ],
   providers: [
     WeightService,

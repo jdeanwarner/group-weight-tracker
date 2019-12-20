@@ -13,7 +13,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <app-weight-chart [weightEntriesMap]="groupsWeightEntries$ | async"></app-weight-chart>
+        <app-weight-chart [users]="users$ | async" [weightEntriesMap]="groupsWeightEntries$ | async"></app-weight-chart>
       </ion-col>
     </ion-row>
   </ion-grid>

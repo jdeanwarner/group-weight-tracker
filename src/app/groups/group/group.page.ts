@@ -1,3 +1,4 @@
+import { User } from 'src/app/shared/user';
 import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -15,10 +16,12 @@ export class GroupPage implements OnInit {
 
   group$: Observable<Group>;
   groupsWeightEntries$: Observable<{ [userId: string]: WeightEntry[] }>;
+  users$: Observable<User[]>;
 
   constructor(private store: Store<fromStore.GroupsState>) {
     this.groupsWeightEntries$ = this.store.select(fromStore.getWeightEntriesEntities);
     this.group$ = this.store.select(fromStore.getSelectedGroup);
+    this.users$ = this.store.select(fromStore.getAllGroupUsers);
   }
 
   ngOnInit() {

@@ -10,9 +10,19 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="weightEntries$ | async as weightEntries">
-    <app-weight-chart class="ion-margin" [weightEntriesMap]="[weightEntries]"></app-weight-chart>
-    <app-weight-entry-list [weightEntries]="weightEntries"></app-weight-entry-list>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <app-weight-chart class="ion-margin" [weightEntriesMap]="[weightEntries$ | async]" [users]="[authService.user$ | async]"></app-weight-chart>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-weight-entry-list [weightEntries]="weightEntries$ | async"></app-weight-entry-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['./entry']">
