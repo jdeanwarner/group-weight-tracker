@@ -1,8 +1,8 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Chart } from 'chart.js';
 import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
+import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-weight-chart',
@@ -25,6 +25,7 @@ export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
   yAxisLabel = 'Weight';
   yScaleMin = 100;
   yScaleMax = 300;
+  curve: any = shape.curveBasis;
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
