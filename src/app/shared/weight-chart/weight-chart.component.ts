@@ -1,9 +1,10 @@
 import { Chart } from 'chart.js';
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
 import * as shape from 'd3-shape';
-import { firestore } from 'firebase';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-weight-chart',
@@ -26,6 +27,11 @@ export class WeightChartComponent implements OnInit, OnChanges {
   yScaleMin = 100;
   yScaleMax = 300;
   curve: any = shape.curveBasis;
+  period: string;
+
+  formGroup: FormGroup = new FormGroup({
+    period: new FormControl()
+  });
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
@@ -75,8 +81,7 @@ export class WeightChartComponent implements OnInit, OnChanges {
       });
   }
 
-
-  constructor() {
+  constructor(private route: ActivatedRoute, private router: Router) {
 
   }
 
@@ -88,28 +93,47 @@ export class WeightChartComponent implements OnInit, OnChanges {
       Object.values(this.weightEntriesMap).length > 0 &&
       Object.values(this.weightEntriesMap)[0].length > 0
     ) {
-      this.loadChart(this.weightEntriesMap, this.users);
+      this.loadDateRange(this.period);
     }
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: {groupId: string, period: string}) => {
+      let period = '';
+      if (params.period) {
+        period = params.period;
+      } else {
+        period = 'all';
+      }
 
+      this.period = period;
+      this.loadDateRange(period);
+      this.formGroup.get('period').patchValue(period);
+    });
   }
 
-  dateRangeChange(event: CustomEvent) {
-    if (event.detail.value === 'all') {
+  loadDateRange(range: string) {
+    if (range === 'all') {
       this.loadChart(this.weightEntriesMap, this.users);
-    } else if (event.detail.value === 'year') {
+    } else if (range === 'year') {
       const date = new Date();
       date.setDate( date.getDate() - 6 );
       date.setFullYear( date.getFullYear() - 1 );
       this.filterDate(date);
-    } else if (event.detail.value === 'month') {
+    } else if (range === 'month') {
       const date = new Date();
       date.setDate( date.getDate() - 6 );
       date.setMonth( date.getMonth() - 1 );
       this.filterDate(date);
     }
+  }
+
+  dateRangeChange(event: CustomEvent) {
+    this.router.navigate([], {
+      queryParams: {
+        period: event.detail.value
+      }
+    });
   }
 
   filterDate( maxDate: Date ) {
@@ -121,5 +145,4 @@ export class WeightChartComponent implements OnInit, OnChanges {
 
     this.loadChart(weightEntries, this.users);
   }
-
 }
