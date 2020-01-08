@@ -33,10 +33,6 @@ export class WeightChartComponent implements OnInit, OnChanges {
     period: new FormControl()
   });
 
-  colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
-
   chart: Chart;
   @ViewChild('container', {static: true}) container: ElementRef;
 
@@ -50,7 +46,7 @@ export class WeightChartComponent implements OnInit, OnChanges {
 
   getUserName(entries: WeightEntry[], users: User[]) {
     let userName = '';
-    if (users) {
+    if (users && entries && entries.length > 0) {
       const filteredUsers = users.filter(user => user  && user.uid === entries[0].uid);
       if (filteredUsers && filteredUsers.length > 0) {
         userName = filteredUsers[0].displayName;
@@ -94,6 +90,10 @@ export class WeightChartComponent implements OnInit, OnChanges {
       Object.values(this.weightEntriesMap)[0].length > 0
     ) {
       this.loadDateRange(this.period);
+      this.legend = true;
+      if (this.users.length === 1) {
+        this.legend = false;
+      }
     }
   }
 
@@ -125,6 +125,10 @@ export class WeightChartComponent implements OnInit, OnChanges {
       date.setDate( date.getDate() - 6 );
       date.setMonth( date.getMonth() - 1 );
       this.filterDate(date);
+    } else if (range === 'week') {
+      const date = new Date();
+      date.setDate( date.getDate() - 7 );
+      this.filterDate(date);
     }
   }
 
@@ -140,7 +144,10 @@ export class WeightChartComponent implements OnInit, OnChanges {
     const keysArr: string[] = Object.keys(this.weightEntriesMap);
     const weightEntries: { [userId: string]: WeightEntry[] } = {};
     Object.values(this.weightEntriesMap).map((entries: WeightEntry[], index: number) => {
-      weightEntries[keysArr[index]] = entries.filter((entry: WeightEntry) => entry.date.toDate() >= maxDate);
+      const filteredEntries: WeightEntry[] = entries.filter((entry: WeightEntry) => entry.date.toDate() >= maxDate);
+      if (filteredEntries.length > 0 ) {
+        weightEntries[keysArr[index]] = filteredEntries;
+      }
     });
 
     this.loadChart(weightEntries, this.users);

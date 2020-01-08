@@ -10,20 +10,14 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <app-weight-chart class="ion-margin" [weightEntriesMap]="[weightEntries$ | async]" [users]="[authService.user$ | async]"></app-weight-chart>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <app-weight-entry-list [weightEntries]="weightEntries$ | async"></app-weight-entry-list>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  <app-weight-chart [weightEntriesMap]="[weightEntries$ | async]" [users]="[authService.user$ | async]"></app-weight-chart>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <app-weight-entry-list [weightEntries]="weightEntries$ | async"></app-weight-entry-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button [routerLink]="['./entry']">
       <ion-icon name="add"></ion-icon>

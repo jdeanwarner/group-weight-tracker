@@ -4,7 +4,7 @@
       <div #container style="display: block; width: 100%">
         <ngx-charts-line-chart *ngIf="view && view[0] > 0"
           [view]="view"
-          [scheme]="colorScheme"
+          [scheme]="'picnic'"
           [legend]="legend"
           [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel"
@@ -13,7 +13,8 @@
           [yAxisLabel]="yAxisLabel"
           [results]="multi"
           [autoScale]="true"
-          [curve]="curve">
+          [curve]="curve"
+          [legendPosition]="'right'">
         </ngx-charts-line-chart>
       </div>
     </ion-col>
@@ -22,6 +23,9 @@
     <ion-col>
       <form [formGroup]="formGroup">
         <ion-segment formControlName="period" (ionChange)="dateRangeChange($event)">
+          <ion-segment-button value="week">
+            <ion-label>Week</ion-label>
+          </ion-segment-button>
           <ion-segment-button value="month">
             <ion-label>Month</ion-label>
           </ion-segment-button>
