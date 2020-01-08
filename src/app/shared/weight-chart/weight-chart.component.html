@@ -1,17 +1,37 @@
-<div #container style="display: block; width: 100%">
-  <ngx-charts-line-chart *ngIf="view && view[0] > 0"
-    [view]="view"
-    [scheme]="colorScheme"
-    [legend]="legend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxis]="xAxis"
-    [yAxis]="yAxis"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [results]="multi"
-    [autoScale]="true"
-    [curve]="curve"
-    >
-  </ngx-charts-line-chart>
-</div>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <div #container style="display: block; width: 100%">
+        <ngx-charts-line-chart *ngIf="view && view[0] > 0"
+          [view]="view"
+          [scheme]="colorScheme"
+          [legend]="legend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxis]="xAxis"
+          [yAxis]="yAxis"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          [results]="multi"
+          [autoScale]="true"
+          [curve]="curve">
+        </ngx-charts-line-chart>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-segment (ionChange)="dateRangeChange($event)">
+        <ion-segment-button value="month">
+          <ion-label>Month</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="year">
+          <ion-label>Year</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="all" checked>
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+  </ion-row>
+</ion-grid>

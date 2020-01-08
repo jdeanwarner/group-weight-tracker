@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 import { GroupService } from './group.service';
+import { IonicModule } from '@ionic/angular';
 
 
 
@@ -19,7 +20,8 @@ import { GroupService } from './group.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    IonicModule.forRoot(),
   ],
   providers: [
     WeightService,

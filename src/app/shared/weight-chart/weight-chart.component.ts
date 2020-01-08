@@ -3,13 +3,14 @@ import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, OnChanges }
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
 import * as shape from 'd3-shape';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-weight-chart',
   templateUrl: './weight-chart.component.html',
   styleUrls: ['./weight-chart.component.scss'],
 })
-export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
+export class WeightChartComponent implements OnInit, OnChanges {
 
   multi: any[];
   view: any[] = null;
@@ -20,8 +21,7 @@ export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
   xAxis = true;
   yAxis = true;
   showYAxisLabel = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Date';
+  showXAxisLabel = false;
   yAxisLabel = 'Weight';
   yScaleMin = 100;
   yScaleMax = 300;
@@ -32,8 +32,6 @@ export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
   };
 
   chart: Chart;
-  name = ['Jordan', 'Zach', 'Dan'];
-
   @ViewChild('container', {static: true}) container: ElementRef;
 
   chartEl = null;
@@ -98,8 +96,30 @@ export class WeightChartComponent implements OnInit, OnDestroy, OnChanges {
 
   }
 
-  ngOnDestroy(): void {
+  dateRangeChange(event: CustomEvent) {
+    if (event.detail.value === 'all') {
+      this.loadChart(this.weightEntriesMap, this.users);
+    } else if (event.detail.value === 'year') {
+      const date = new Date();
+      date.setDate( date.getDate() - 6 );
+      date.setFullYear( date.getFullYear() - 1 );
+      this.filterDate(date);
+    } else if (event.detail.value === 'month') {
+      const date = new Date();
+      date.setDate( date.getDate() - 6 );
+      date.setMonth( date.getMonth() - 1 );
+      this.filterDate(date);
+    }
+  }
 
+  filterDate( maxDate: Date ) {
+    const keysArr: string[] = Object.keys(this.weightEntriesMap);
+    const weightEntries: { [userId: string]: WeightEntry[] } = {};
+    Object.values(this.weightEntriesMap).map((entries: WeightEntry[], index: number) => {
+      weightEntries[keysArr[index]] = entries.filter((entry: WeightEntry) => entry.date.toDate() >= maxDate);
+    });
+
+    this.loadChart(weightEntries, this.users);
   }
 
 }
