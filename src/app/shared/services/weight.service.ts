@@ -1,14 +1,14 @@
-import { WeightEntry } from './weight-entry';
+import { WeightEntry } from '../weight-entry';
 import { Injectable } from '@angular/core';
 import { DocumentReference, AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { take, switchMap, map } from 'rxjs/operators';
-import { User } from './user';
-import { UserOwned } from './user-owned';
+import { User } from '../user';
+import { UserOwned } from '../user-owned';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase';
-import { INIT_DATA } from './init-data';
-import { Group } from './group';
+import { INIT_DATA } from '../init-data';
+import { Group } from '../group';
 
 @Injectable({
   providedIn: 'root'

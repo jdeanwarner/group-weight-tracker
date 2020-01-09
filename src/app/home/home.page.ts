@@ -1,5 +1,5 @@
-import { AuthService } from './../shared/auth.service';
-import { WeightService } from './../shared/weight.service';
+import { AuthService } from '../shared/services/auth.service';
+import { WeightService } from '../shared/services/weight.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';

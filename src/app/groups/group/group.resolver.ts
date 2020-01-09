@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Group } from 'src/app/shared/group';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { forkJoin } from 'rxjs';
 
 

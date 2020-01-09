@@ -1,6 +1,6 @@
-import { UserService } from 'src/app/shared/user.service';
-import { WeightService } from './../../../shared/weight.service';
-import { GroupService } from './../../../shared/group.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { WeightService } from '../../../shared/services/weight.service';
+import { GroupService } from '../../../shared/services/group.service';
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';

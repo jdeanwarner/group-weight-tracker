@@ -1,9 +1,9 @@
-import { User } from './user';
+import { User } from '../user';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { Group } from './group';
+import { Group } from '../group';
 
 @Injectable({
   providedIn: 'root'

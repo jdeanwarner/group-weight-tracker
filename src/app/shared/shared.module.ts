@@ -1,13 +1,13 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { WeightChartComponent } from './weight-chart/weight-chart.component';
-import { AuthService } from './auth.service';
-import { WeightService } from './weight.service';
+import { AuthService } from './services/auth.service';
+import { WeightService } from './services/weight.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './user.service';
-import { GroupService } from './group.service';
+import { UserService } from './services/user.service';
+import { GroupService } from './services/group.service';
 import { IonicModule } from '@ionic/angular';
 
 

@@ -1,4 +1,4 @@
-import { WeightService } from './../../../shared/weight.service';
+import { WeightService } from '../../../shared/services/weight.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';

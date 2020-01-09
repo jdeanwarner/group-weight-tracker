@@ -1,11 +1,11 @@
-import { Group } from './group';
+import { Group } from '../group';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
-import { User } from './user';
+import { User } from '../user';
 import { map, take, switchMap } from 'rxjs/operators';
-import { UserOwned } from './user-owned';
+import { UserOwned } from '../user-owned';
 
 @Injectable({
   providedIn: 'root'
