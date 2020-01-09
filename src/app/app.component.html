@@ -16,14 +16,15 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-item *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()">
+          <ion-item *ngIf="auth.user$ | async as user; else login" (click)="auth.signOut()" 
+            [routerDirection]="'root'" [routerLink]="['\login-required']">
             <ion-icon slot="start" name="log-out"></ion-icon>
             <ion-label>
               Sign Out
             </ion-label>
           </ion-item>
           <ng-template #login>
-            <ion-item (click)="auth.googleSignin()">
+            <ion-item (click)="auth.googleSignin()" [routerDirection]="'root'" [routerLink]="['\home']">
               <ion-icon slot="start" name="log-out"></ion-icon>
               <ion-label>
                 Login with Google
