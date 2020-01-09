@@ -30,12 +30,15 @@ export class AuthService {
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
+    if (this.router.url === '/login-required') {
+      this.router.navigate(['/home']);
+    }
     return this.updateUserData(credential.user);
   }
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    return this.router.navigate(['/']);
+    return this.router.navigate(['/login-required']);
   }
 
   private async updateUserData(user) {
