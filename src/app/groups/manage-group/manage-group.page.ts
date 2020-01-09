@@ -1,7 +1,7 @@
 import { Group } from 'src/app/shared/group';
 import { LoadUsersByName } from './../store/actions/user.actions';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../store';
 import { Observable } from 'rxjs';
@@ -24,6 +24,7 @@ export class ManageGroupPage implements OnInit {
 
   searchUsers$: Observable<User[]>;
   group$: Observable<Group>;
+  group: Group;
   groupUsers$: Observable<User[]>;
 
   constructor(private store: Store<fromStore.GroupsState>) {
@@ -33,7 +34,13 @@ export class ManageGroupPage implements OnInit {
   }
 
   ngOnInit() {
-    this.groupUsers$.subscribe(groups => this.userList = groups);
+    this.groupUsers$.subscribe(users => this.userList = users);
+    this.group$.subscribe(group => {
+      if (group) {
+        this.group = group;
+        this.formGroup.patchValue(group);
+      }
+    });
   }
 
   onUserNameChange(name: string) {
@@ -54,6 +61,21 @@ export class ManageGroupPage implements OnInit {
   }
 
   deleteUser(index: number) {
-    this.userList.splice(index);
+    this.userList.splice(index, 1);
+  }
+
+  ownerChanged(uid: string) {
+    console.log(uid);
+    if (this.group.owners.includes(uid)) {
+      const index = this.group.owners.indexOf(uid);
+      this.group.owners.splice(index, 1);
+    } else {
+      this.group.owners.push(uid);
+    }
+  }
+
+  save() {
+    this.group.name = this.formGroup.get('name').value;
+    console.log(this.group);
   }
 }

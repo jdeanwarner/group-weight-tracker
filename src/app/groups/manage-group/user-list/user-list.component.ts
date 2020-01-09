@@ -9,8 +9,10 @@ import { User } from 'src/app/shared/user';
 export class UserListComponent implements OnInit {
 
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+  @Output() ownerChanged: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() users: User[];
+  @Input() owners: string[];
 
   constructor() { }
 
@@ -18,6 +20,14 @@ export class UserListComponent implements OnInit {
 
   deleteItem(index: number) {
     this.delete.emit(index);
+  }
+
+  isOwner(user: User) {
+    return this.owners.includes(user.uid);
+  }
+
+  ownershipChanged(user: User) {
+    this.ownerChanged.emit(user.uid);
   }
 
 }
