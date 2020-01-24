@@ -52,3 +52,7 @@ export const getAllWeightEntries = createSelector(
 
 export const getWeightEntriesLoading = createSelector(getGroupState, fromGroups.getWeightEntriesLoading);
 export const getWeightEntriesLoaded = createSelector(getGroupState, fromGroups.getWeightEntriesLoaded);
+
+export const countWeightEntriesLoading = createSelector(getGroupState, fromGroups.countWeightEntriesLoading);
+export const countWeightEntriesLoaded = createSelector(getGroupState, fromGroups.countWeightEntriesLoaded);
+export const countWeightEntries = createSelector(getGroupState, fromGroups.countWeightEntries);

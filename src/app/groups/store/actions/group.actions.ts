@@ -26,6 +26,10 @@ export const LOAD_WEIGHT_ENTRIES_FOR_GROUP = '[groups] Load Weight Entries for G
 export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS = '[groups] Load Weight Entries for Group Success';
 export const LOAD_WEIGHT_ENTRIES_FOR_GROUP_FAIL = '[groups] Load Weight Entries for Group Fail';
 
+export const COUNT_WEIGHT_ENTRIES_FOR_GROUP = '[groups] Count Weight Entries for Group';
+export const COUNT_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS = '[groups] Count Weight Entries for Group Success';
+export const COUNT_WEIGHT_ENTRIES_FOR_GROUP_FAIL = '[groups] Count Weight Entries for Group Fail';
+
 export const LOAD_GROUP_USERS = '[groups] Load Group Users';
 export const LOAD_GROUP_USERS_SUCCESS = '[groups] Load Group Users Success';
 export const LOAD_GROUP_USERS_FAIL = '[groups] Load Group Users Fail';
@@ -136,6 +140,24 @@ export class LoadWeightEntriesForGroupFail implements Action {
     constructor(public playload: any) {}
 }
 
+export class CountWeightEntriesForGroup implements Action {
+    readonly type = COUNT_WEIGHT_ENTRIES_FOR_GROUP;
+
+    constructor(public playload: string[]) {}
+}
+
+export class CountWeightEntriesForGroupSuccess implements Action {
+    readonly type = COUNT_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS;
+
+    constructor(public playload: number) {}
+}
+
+export class CountWeightEntriesForGroupFail implements Action {
+    readonly type = COUNT_WEIGHT_ENTRIES_FOR_GROUP_FAIL;
+
+    constructor(public playload: any) {}
+}
+
 
 export type GroupActions =
     LoadGroups |
@@ -156,4 +178,7 @@ export type GroupActions =
     DeleteGroupSuccess |
     LoadWeightEntriesForGroup |
     LoadWeightEntriesForGroupSuccess |
-    LoadWeightEntriesForGroupFail;
+    LoadWeightEntriesForGroupFail |
+    CountWeightEntriesForGroup |
+    CountWeightEntriesForGroupSuccess |
+    CountWeightEntriesForGroupFail;

@@ -14,7 +14,7 @@
         <ion-button class="ion-float-right" [routerLink]="['./manage']">Edit</ion-button>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="allRecordsLoaded(recordsCount$ | async, groupsWeightEntries$ | async)">
       <ion-col>
         <app-weight-chart [users]="users$ | async" [weightEntriesMap]="groupsWeightEntries$ | async"></app-weight-chart>
       </ion-col>

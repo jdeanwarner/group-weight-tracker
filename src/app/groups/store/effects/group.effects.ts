@@ -89,5 +89,18 @@ export class GroupEffects {
       }
     )
   )
-);
+  );
+
+  countWeightEntriesForGroup$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(groupActions.COUNT_WEIGHT_ENTRIES_FOR_GROUP),
+    switchMap((action: groupActions.CountWeightEntriesForGroup) => {
+      return this.weightService.countWeightEntriesForGroup(action.playload)
+        .pipe(
+          map((count: number) => (new groupActions.CountWeightEntriesForGroupSuccess(count))),
+          catchError(error => of(new groupActions.CountWeightEntriesForGroupFail(error)))
+        );
+      }
+    )
+  )
+  );
 }

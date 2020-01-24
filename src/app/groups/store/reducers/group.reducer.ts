@@ -16,6 +16,11 @@ export interface GroupState {
         loaded: boolean;
         loading: boolean;
     };
+    count: {
+        count: number,
+        loaded: boolean;
+        loading: boolean;
+    };
     users: {
         entities: { [userId: string]: User };
         loaded: boolean;
@@ -32,6 +37,11 @@ export const initialState: GroupState = {
     selected : null,
     entries: {
         entities: {},
+        loaded: false,
+        loading: false,
+    },
+    count: {
+        count: 0,
         loaded: false,
         loading: false
     },
@@ -132,6 +142,26 @@ export function reducer(state: GroupState = initialState, action: groupActions.G
             state.entries.loaded = false;
             return state;
         }
+        case groupActions.COUNT_WEIGHT_ENTRIES_FOR_GROUP: {
+            state.count.loading = true;
+            state.count.loaded = false;
+            return state;
+        }
+        case groupActions.COUNT_WEIGHT_ENTRIES_FOR_GROUP_SUCCESS: {
+            return {
+                ... state,
+                count: {
+                    loading: false,
+                    loaded: true,
+                    count : action.playload
+                }
+            };
+        }
+        case groupActions.COUNT_WEIGHT_ENTRIES_FOR_GROUP_FAIL: {
+            state.count.loading = false;
+            state.count.loaded = false;
+            return state;
+        }
         default:
             return state;
     }
@@ -150,3 +180,7 @@ export const getSelectedGroup = (state: GroupState) => state.selected;
 export const getWeightEntriesLoading = (state: GroupState) => state.entries.loading;
 export const getWeightEntriesLoaded = (state: GroupState) => state.entries.loaded;
 export const getWeightEntriesEntities = (state: GroupState) => state.entries.entities;
+
+export const countWeightEntriesLoading = (state: GroupState) => state.count.loading;
+export const countWeightEntriesLoaded = (state: GroupState) => state.count.loaded;
+export const countWeightEntries = (state: GroupState) => state.count.count;

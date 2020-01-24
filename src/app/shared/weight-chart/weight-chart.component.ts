@@ -1,4 +1,3 @@
-import { Chart } from 'chart.js';
 import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
@@ -33,13 +32,7 @@ export class WeightChartComponent implements OnInit, OnChanges {
     period: new FormControl()
   });
 
-  chart: Chart;
   @ViewChild('container', {static: true}) container: ElementRef;
-
-  chartEl = null;
-
-  setUsers: User[];
-  weightMap: { [userId: string]: WeightEntry[] } | WeightEntry[][];
 
   @Input() users: User[];
   @Input() weightEntriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][];

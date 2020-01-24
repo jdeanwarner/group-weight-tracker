@@ -14,12 +14,11 @@ export class GroupService {
 
   constructor(private db: AngularFirestore, private userAuth: AuthService) { }
 
-  makeUserOwnedSetRequest<T extends UserOwned>(userObj: T, func: (userObj: T) => Promise<DocumentReference>): Promise<DocumentReference> {
-    return this.userAuth.user$.pipe(
-        take(1)
-      )
-      .toPromise()
-      .then((user: User) => func({ ...userObj, uid: user.uid }));
+  async makeUserOwnedSetRequest<T extends UserOwned>(userObj: T, func: (userObj: T) => Promise<DocumentReference>):
+    Promise<DocumentReference> {
+    const user = await this.userAuth.user$.pipe(take(1))
+      .toPromise();
+    return func({ ...userObj, uid: user.uid });
   }
 
   makeUserOwnedGetRequest(func: (user: User) => Observable<any>): Observable<any> {
