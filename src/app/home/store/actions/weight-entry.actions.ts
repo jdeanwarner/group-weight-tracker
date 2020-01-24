@@ -7,6 +7,8 @@ export const LOAD_WEIGHT_ENTRIES = '[weight] Load Weight Entries';
 export const LOAD_WEIGHT_ENTRIES_SUCCESS = '[weight] Load Weight Entries Success';
 export const LOAD_WEIGHT_ENTRIES_FAIL = '[weight] Load Weight Entries Fail';
 
+export const SELECT_WEIGHT_ENTRIES = '[weight] Select Weight Entries';
+
 export const INSERT_WEIGHT_ENTRIES = '[weight] Insert Weight Entries';
 export const INSERT_WEIGHT_ENTRIES_SUCCESS = '[weight] Insert Weight Entries Success';
 export const INSERT_WEIGHT_ENTRIES_FAIL = '[weight] Insert Weight Entries Fail';
@@ -33,6 +35,12 @@ export class LoadWeightEntriesFail implements Action {
     readonly type = LOAD_WEIGHT_ENTRIES_FAIL;
 
     constructor(public playload: any) {}
+}
+
+export class SelectWeightEntry implements Action {
+    readonly type = SELECT_WEIGHT_ENTRIES;
+
+    constructor(public playload: WeightEntry) {}
 }
 
 export class InsertWeightEntry implements Action {
@@ -89,6 +97,7 @@ export type WeightEntryActions =
     LoadWeightEntries |
     LoadWeightEntriesFail |
     LoadWeightEntriesSuccess |
+    SelectWeightEntry |
     InsertWeightEntry |
     InsertWeightEntryFail |
     InsertWeightEntrySuccess |

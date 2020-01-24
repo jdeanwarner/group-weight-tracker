@@ -2,7 +2,7 @@
   <ion-list-header>
     <ion-label>Weight Entries</ion-label>
   </ion-list-header>
-  <ion-item *ngFor="let entry of weightEntries.sort(sortByDate) ">
+  <ion-item *ngFor="let entry of weightEntries.sort(sortByDate) " [routerLink]="[entry.id]">
     <ion-label>{{ entry.date.toDate().toDateString() }}</ion-label>
     <ion-label>{{ entry.value }}</ion-label>
   </ion-item>

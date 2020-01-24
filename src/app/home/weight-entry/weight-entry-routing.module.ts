@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { WeightEntryPage } from './weight-entry.page';
+import { WeightEntryResolver } from './weight-entry.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: WeightEntryPage
+    component: WeightEntryPage,
+    resolve: [
+      WeightEntryResolver
+    ]
   }
 ];
 

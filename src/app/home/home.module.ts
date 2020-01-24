@@ -23,12 +23,17 @@ import { WeightEntriesResolver } from './weight-entries.resolver';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage,
-        resolve: [WeightEntriesResolver]
-      },
-      {
-        path: 'entry',
-        loadChildren: () => import('./weight-entry/weight-entry.module').then( m => m.WeightEntryPageModule)
+        resolve: [WeightEntriesResolver],
+        children: [
+          {
+            path: '',
+            component: HomePage,
+          },
+          {
+            path: ':id',
+            loadChildren: () => import('./weight-entry/weight-entry.module').then( m => m.WeightEntryPageModule)
+          }
+        ]
       }
     ]),
     StoreModule.forFeature('weightEntries', reducers),

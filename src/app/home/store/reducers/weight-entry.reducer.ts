@@ -6,12 +6,14 @@ export interface WeightState {
     entities: { [id: number]: WeightEntry };
     loaded: boolean;
     loading: boolean;
+    selected: WeightEntry;
 }
 
 export const initialState: WeightState = {
     entities: {},
     loaded: false,
-    loading: false
+    loading: false,
+    selected: null
 };
 
 function getActivityEntities(entries: WeightEntry[]) {
@@ -45,6 +47,12 @@ WeightState {
             state.loaded = false;
             return state;
         }
+        case fromWeightEntries.SELECT_WEIGHT_ENTRIES: {
+            return {
+                ...state,
+                selected: action.playload
+            };
+        }
         default:
             return state;
     }
@@ -53,3 +61,5 @@ WeightState {
 export const getWeightEntriesLoading = (state: WeightState) => state.loading;
 export const getWeightEntriesLoaded = (state: WeightState) => state.loaded;
 export const getWeightEntriesEntites = (state: WeightState) => state.entities;
+
+export const getSelectedWeightEntry = (state: WeightState) => state.selected;

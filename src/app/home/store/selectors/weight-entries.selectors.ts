@@ -26,3 +26,5 @@ export const getWeightEntry = (id: string) => createSelector(
 
 export const getWeightEntriesLoading = createSelector(getWeightEntriesState, fromWeightEntries.getWeightEntriesLoading);
 export const getWeightEntriesLoaded = createSelector(getWeightEntriesState, fromWeightEntries.getWeightEntriesLoaded);
+
+export const getSelectedWeightEntry = createSelector(getWeightEntriesState, fromWeightEntries.getSelectedWeightEntry);

@@ -8,6 +8,7 @@ import { WeightEntryPageRoutingModule } from './weight-entry-routing.module';
 
 import { WeightEntryPage } from './weight-entry.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { WeightEntryResolver } from './weight-entry.resolver';
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
     WeightEntryPageRoutingModule
   ],
-  declarations: [WeightEntryPage]
+  declarations: [WeightEntryPage],
+  providers: [
+    WeightEntryResolver
+  ]
 })
 export class WeightEntryPageModule {}
