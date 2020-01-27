@@ -28,6 +28,10 @@
       </ion-row>
       <ion-row class="ion-align-items-end">
         <ion-col size-lg="4" offset-lg="3" class="ion-text-end">
+          <ion-button color="danger" (click)="delete()">
+            <ion-icon name="trash" slot="start"></ion-icon>
+            Delete
+          </ion-button>
           <ion-button color="primary" (click)="save()">
             <ion-icon name="save" slot="start"></ion-icon>
             Save

@@ -1,4 +1,4 @@
-import { UpdateWeightEntry } from './../store/actions/weight-entry.actions';
+import { UpdateWeightEntry, DeleteWeightEntry } from './../store/actions/weight-entry.actions';
 import { Observable } from 'rxjs';
 import { InsertWeightEntry } from '../store/actions/weight-entry.actions';
 import { Component, OnInit } from '@angular/core';
@@ -48,7 +48,6 @@ export class WeightEntryPage implements OnInit {
 
   save() {
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
       const saveValue: WeightEntry = {
         ...this.formGroup.value,
         date: firestore.Timestamp.fromDate(new Date(this.formGroup.get('date').value))
@@ -62,6 +61,11 @@ export class WeightEntryPage implements OnInit {
 
       this.router.navigate(['./home']);
     }
+  }
+
+  delete() {
+    this.store.dispatch(new DeleteWeightEntry(this.formGroup.value.id));
+    this.router.navigate(['./home']);
   }
 
 }
