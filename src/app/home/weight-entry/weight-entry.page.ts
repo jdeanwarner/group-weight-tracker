@@ -1,3 +1,4 @@
+import { UpdateWeightEntry } from './../store/actions/weight-entry.actions';
 import { Observable } from 'rxjs';
 import { InsertWeightEntry } from '../store/actions/weight-entry.actions';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ export class WeightEntryPage implements OnInit {
   formGroup: FormGroup = new FormGroup({
     id: new FormControl(),
     date: new FormControl(new Date().toISOString(), [Validators.required]),
-    value: new FormControl([Validators.required])
+    value: new FormControl([Validators.required]),
+    uid: new FormControl()
   });
 
   selectedEntry$: Observable<WeightEntry>;
@@ -37,7 +39,8 @@ export class WeightEntryPage implements OnInit {
         this.formGroup.setValue({
           id: entry.id,
           date: entry.date.toDate().toISOString(),
-          value: entry.value
+          value: entry.value,
+          uid: entry.uid
         });
       }
     });
@@ -45,10 +48,17 @@ export class WeightEntryPage implements OnInit {
 
   save() {
     if (this.formGroup.valid) {
-      this.store.dispatch(new InsertWeightEntry({
+      console.log(this.formGroup.value);
+      const saveValue: WeightEntry = {
         ...this.formGroup.value,
         date: firestore.Timestamp.fromDate(new Date(this.formGroup.get('date').value))
-      }));
+      };
+
+      if (saveValue.id) {
+        this.store.dispatch(new UpdateWeightEntry(saveValue));
+      } else {
+        this.store.dispatch(new InsertWeightEntry(saveValue));
+      }
 
       this.router.navigate(['./home']);
     }

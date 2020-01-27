@@ -50,24 +50,26 @@ export class WeightChartComponent implements OnInit, OnChanges {
   }
 
   loadChart(entriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][], users: User[]) {
+    if (this.container.nativeElement.offsetWidth && this.container.nativeElement.offsetWidth > 0) {
       this.view = [ this.container.nativeElement.offsetWidth ];
+    }
 
-      this.multi = Object.values(entriesMap)
-        .map((entries: WeightEntry[], index: number) => {
-          return {
-            name: this.getUserName(entries, users),
-            series: entries
-              .sort((a, b) =>
-                a.date.seconds > b.date.seconds ? 1 : a.date.seconds < b.date.seconds ? -1 : 0
-              )
-              .map(entry => {
-              return {
-                name: entry.date.toDate(),
-                value: entry.value
-              };
-            })
-          };
-      });
+    this.multi = Object.values(entriesMap)
+      .map((entries: WeightEntry[], index: number) => {
+        return {
+          name: this.getUserName(entries, users),
+          series: entries
+            .sort((a, b) =>
+              a.date.seconds > b.date.seconds ? 1 : a.date.seconds < b.date.seconds ? -1 : 0
+            )
+            .map(entry => {
+            return {
+              name: entry.date.toDate(),
+              value: entry.value
+            };
+          })
+        };
+    });
   }
 
   constructor(private route: ActivatedRoute, private router: Router) {

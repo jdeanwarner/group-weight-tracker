@@ -82,6 +82,7 @@ export class WeightService {
   }
 
   updateWeightEntry(entry: WeightEntry): Promise<void> {
+    console.log(entry);
     return this.db.collection('weightEntries').doc(entry.id).set(entry);
   }
 
