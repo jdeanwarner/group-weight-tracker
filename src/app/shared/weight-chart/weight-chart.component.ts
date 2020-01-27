@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges, Output, EventEmitter } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 import { User } from '../user';
 import * as shape from 'd3-shape';
@@ -36,6 +36,7 @@ export class WeightChartComponent implements OnInit, OnChanges {
 
   @Input() users: User[];
   @Input() weightEntriesMap: { [userId: string]: WeightEntry[] } | WeightEntry[][];
+  @Output() rangeChange: EventEmitter<Date> = new EventEmitter<Date>();
 
   getUserName(entries: WeightEntry[], users: User[]) {
     let userName = '';
@@ -108,23 +109,32 @@ export class WeightChartComponent implements OnInit, OnChanges {
   }
 
   loadDateRange(range: string) {
-    if (range === 'all') {
-      this.loadChart(this.weightEntriesMap, this.users);
-    } else if (range === 'year') {
-      const date = new Date();
-      date.setDate( date.getDate() - 6 );
-      date.setFullYear( date.getFullYear() - 1 );
-      this.filterDate(date);
-    } else if (range === 'month') {
-      const date = new Date();
-      date.setDate( date.getDate() - 6 );
-      date.setMonth( date.getMonth() - 1 );
-      this.filterDate(date);
-    } else if (range === 'week') {
-      const date = new Date();
-      date.setDate( date.getDate() - 7 );
-      this.filterDate(date);
+    let date = new Date();
+    switch (range) {
+      case 'all':
+        const minDateWeights: WeightEntry[] = Object.values(this.weightEntriesMap)
+        .reduce((flat, toFlatten) => flat.concat(toFlatten))
+        .sort((a: WeightEntry, b: WeightEntry) => a.date.toDate().getTime() - b.date.toDate().getTime())
+        .filter((item: WeightEntry, index: number, array: WeightEntry[]) =>
+          item.date.toDate().getTime() === array[0].date.toDate().getTime()
+        );
+        date = minDateWeights && minDateWeights[0] ? minDateWeights[0].date.toDate() : new Date();
+        break;
+      case 'year':
+        date.setDate( date.getDate() - 6 );
+        date.setFullYear( date.getFullYear() - 1 );
+        break;
+      case 'month':
+        date.setDate( date.getDate() - 6 );
+        date.setMonth( date.getMonth() - 1 );
+        break;
+      case 'week':
+        date.setDate( date.getDate() - 7 );
+        break;
     }
+
+    this.rangeChange.emit(date);
+    this.filterDate(date);
   }
 
   dateRangeChange(event: CustomEvent) {

@@ -16,11 +16,16 @@ export class HomePage implements OnInit {
 
   weightEntries$: Observable<WeightEntry[]>;
   chart: Chart;
+  range: Date;
 
   constructor(private store: Store<fromStore.WeightState>, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.weightEntries$ = this.store.select(fromStore.getAllWeightEntries);
+  }
+
+  dateRangeChange(startDate: Date) {
+    this.range = startDate;
   }
 
 }

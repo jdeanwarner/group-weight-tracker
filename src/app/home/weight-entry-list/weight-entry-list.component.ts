@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { WeightEntry } from 'src/app/shared/weight-entry';
 
 @Component({
@@ -9,10 +9,18 @@ import { WeightEntry } from 'src/app/shared/weight-entry';
 export class WeightEntryListComponent implements OnInit {
 
   @Input() weightEntries: WeightEntry[];
+  @Input() set range( startDate: Date) {
+    this.listToShow = this.weightEntries
+      .filter(entry => entry.date.toDate() > startDate)
+      .sort(this.sortByDate);
+  }
+
+  listToShow: WeightEntry[];
 
   constructor() { }
 
   ngOnInit() {}
+
 
   sortByDate(a: WeightEntry, b: WeightEntry) {
     return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;

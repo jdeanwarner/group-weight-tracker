@@ -10,11 +10,12 @@
 </ion-header>
 
 <ion-content>
-  <app-weight-chart [weightEntriesMap]="[weightEntries$ | async]" [users]="[authService.user$ | async]"></app-weight-chart>
+  <app-weight-chart [weightEntriesMap]="[weightEntries$ | async]" [users]="[authService.user$ | async]" 
+    (rangeChange)="dateRangeChange($event)"></app-weight-chart>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <app-weight-entry-list [weightEntries]="weightEntries$ | async"></app-weight-entry-list>
+        <app-weight-entry-list [weightEntries]="weightEntries$ | async" [range]="range"></app-weight-entry-list>
       </ion-col>
     </ion-row>
   </ion-grid>
